@@ -18,14 +18,17 @@ life_expectancy_data <- read.csv("sp_dyn_le00_in.csv")
 ```
 
 ```{r}
+# Pivoting GDP to long
 gdp_long <- gdp_data |>
   select(country, X1960:X2022) |> 
   pivot_longer(cols = X1960:X2022,
                names_to = "Year",
                values_to = "GDP per Capita")
+# Only selecting 1960-2022 to match life expactancy and not include predicted GDP after 2022
 ```
 
 ```{r}
+# Pivoting life expectancy to long
 life_expectancy_long <- life_expectancy_data |>
   pivot_longer(cols = X1960:X2022, 
                names_to = "Year",
@@ -33,6 +36,7 @@ life_expectancy_long <- life_expectancy_data |>
 ```
 
 ```{r}
+# Joining life and gdp data
 combined_data <- gdp_long |>
   inner_join(life_expectancy_long, join_by(country, Year))
 ```
