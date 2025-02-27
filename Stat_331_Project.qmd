@@ -9,6 +9,7 @@ editor: visual
 # Loading in libraries
 library(tidyverse)
 library(knitr)
+library(readr)
 ```
 
 ```{r}
@@ -23,8 +24,13 @@ gdp_long <- gdp_data |>
   select(country, X1960:X2022) |> 
   pivot_longer(cols = X1960:X2022,
                names_to = "Year",
-               values_to = "GDP per Capita")
-# Only selecting 1960-2022 to match life expactancy and not include predicted GDP after 2022
+               values_to = "GDP per Capita") |>
+  mutate(
+    Year = as.integer(str_remove(Year, "^X")),
+    `GDP per Capita` = case_when(
+      str_detect(`GDP per Capita`, "k") ~ parse_number(`GDP per Capita`) * 1000,
+      TRUE ~ parse_number(`GDP per Capita`)))
+# Only selecting 1960-2022 to match life expectancy and not include predicted GDP after 2022
 ```
 
 ```{r}
@@ -32,7 +38,8 @@ gdp_long <- gdp_data |>
 life_expectancy_long <- life_expectancy_data |>
   pivot_longer(cols = X1960:X2022, 
                names_to = "Year",
-               values_to = "Life Expectancy")
+               values_to = "Life Expectancy") |>
+  mutate(Year = as.integer(str_remove(Year, "^X")))
 ```
 
 ```{r}
@@ -40,4 +47,3 @@ life_expectancy_long <- life_expectancy_data |>
 combined_data <- gdp_long |>
   inner_join(life_expectancy_long, join_by(country, Year))
 ```
-
