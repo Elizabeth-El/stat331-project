@@ -182,6 +182,121 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </section>
 </section>
+<section id="modeling-and-graphing" class="level2">
+<h2 class="anchored" data-anchor-id="modeling-and-graphing">Modeling and Graphing</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define country vectors by continent</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT to format this (https://chatgpt.com/share/67c0f690-5020-8004-b149-ef2bae1b914e)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Asia</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>asia_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Afghanistan"</span>, <span class="st">"Armenia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Bangladesh"</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Bhutan"</span>, <span class="st">"Brunei"</span>, <span class="st">"Cambodia"</span>, <span class="st">"China"</span>, <span class="st">"Georgia"</span>, <span class="st">"India"</span>, </span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Indonesia"</span>, <span class="st">"Iran"</span>, <span class="st">"Iraq"</span>, <span class="st">"Israel"</span>, <span class="st">"Japan"</span>, <span class="st">"Jordan"</span>, </span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Kazakhstan"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Laos"</span>, <span class="st">"Lebanon"</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Malaysia"</span>, <span class="st">"Maldives"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Nepal"</span>, </span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"North Korea"</span>, <span class="st">"Oman"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Palestine"</span>, <span class="st">"Philippines"</span>, </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Singapore"</span>, <span class="st">"South Korea"</span>, <span class="st">"Sri Lanka"</span>, </span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Syria"</span>, <span class="st">"Tajikistan"</span>, <span class="st">"Thailand"</span>, <span class="st">"Timor-Leste"</span>, <span class="st">"Turkey"</span>, </span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Turkmenistan"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Vietnam"</span>, <span class="st">"Yemen"</span>))</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Africa</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>africa_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Angola"</span>, <span class="st">"Algeria"</span>, <span class="st">"Benin"</span>, <span class="st">"Botswana"</span>, <span class="st">"Burkina Faso"</span>, </span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Burundi"</span>, <span class="st">"Cabo Verde"</span>, <span class="st">"Cameroon"</span>, <span class="st">"Central African Republic"</span>, </span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Chad"</span>, <span class="st">"Comoros"</span>, <span class="st">"Democratic Republic of the Congo"</span>, </span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Djibouti"</span>, <span class="st">"Egypt"</span>, <span class="st">"Equatorial Guinea"</span>, <span class="st">"Eritrea"</span>, <span class="st">"Eswatini"</span>, </span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ethiopia"</span>, <span class="st">"Gabon"</span>, <span class="st">"Gambia"</span>, <span class="st">"Ghana"</span>, <span class="st">"Guinea"</span>, <span class="st">"Guinea-Bissau"</span>, </span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ivory Coast"</span>, <span class="st">"Kenya"</span>, <span class="st">"Lesotho"</span>, <span class="st">"Liberia"</span>, <span class="st">"Libya"</span>, </span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Madagascar"</span>, <span class="st">"Malawi"</span>, <span class="st">"Mali"</span>, <span class="st">"Mauritania"</span>, <span class="st">"Mauritius"</span>, </span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Morocco"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Niger"</span>, <span class="st">"Nigeria"</span>, </span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Republic of the Congo"</span>, <span class="st">"Rwanda"</span>, <span class="st">"Sao Tome and Principe"</span>, </span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Senegal"</span>, <span class="st">"Seychelles"</span>, <span class="st">"Sierra Leone"</span>, <span class="st">"Somalia"</span>, <span class="st">"South Africa"</span>, </span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"South Sudan"</span>, <span class="st">"Sudan"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Togo"</span>, <span class="st">"Tunisia"</span>, <span class="st">"Uganda"</span>, </span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Zambia"</span>, <span class="st">"Zimbabwe"</span>))</span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Europe</span></span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>europe_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Albania"</span>, <span class="st">"Andorra"</span>, <span class="st">"Austria"</span>, <span class="st">"Belarus"</span>, <span class="st">"Belgium"</span>, </span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Bulgaria"</span>, <span class="st">"Croatia"</span>, <span class="st">"Cyprus"</span>, </span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Czech Republic"</span>, <span class="st">"Denmark"</span>, <span class="st">"Estonia"</span>, <span class="st">"Finland"</span>, <span class="st">"France"</span>, </span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Germany"</span>, <span class="st">"Greece"</span>, <span class="st">"Hungary"</span>, <span class="st">"Iceland"</span>, <span class="st">"Ireland"</span>, <span class="st">"Italy"</span>, </span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Latvia"</span>, <span class="st">"Liechtenstein"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"Malta"</span>, </span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Moldova"</span>, <span class="st">"Monaco"</span>, <span class="st">"Montenegro"</span>, <span class="st">"Netherlands"</span>, <span class="st">"North Macedonia"</span>, </span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Norway"</span>, <span class="st">"Poland"</span>, <span class="st">"Portugal"</span>, <span class="st">"Romania"</span>, <span class="st">"Russia"</span>, <span class="st">"San Marino"</span>, </span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Serbia"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Slovenia"</span>, <span class="st">"Spain"</span>, <span class="st">"Sweden"</span>, <span class="st">"Switzerland"</span>, </span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ukraine"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Vatican City"</span>))</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># North America</span></span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>north_america_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Antigua and Barbuda"</span>, <span class="st">"Bahamas"</span>, <span class="st">"Barbados"</span>, <span class="st">"Belize"</span>, </span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"Cuba"</span>, <span class="st">"Dominica"</span>, </span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Dominican Republic"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Grenada"</span>, </span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Guatemala"</span>, <span class="st">"Haiti"</span>, <span class="st">"Honduras"</span>, <span class="st">"Jamaica"</span>, <span class="st">"Mexico"</span>, </span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Nicaragua"</span>, <span class="st">"Panama"</span>, <span class="st">"Saint Kitts and Nevis"</span>, </span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Saint Lucia"</span>, <span class="st">"Saint Vincent and the Grenadines"</span>, </span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Trinidad and Tobago"</span>, <span class="st">"United States"</span>))</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co"># South America</span></span>
+<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>south_america_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Argentina"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Brazil"</span>, <span class="st">"Chile"</span>, <span class="st">"Colombia"</span>, </span>
+<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Ecuador"</span>, <span class="st">"Guyana"</span>, <span class="st">"Paraguay"</span>, <span class="st">"Peru"</span>, <span class="st">"Suriname"</span>, </span>
+<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Uruguay"</span>, <span class="st">"Venezuela"</span>))</span>
+<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Oceania</span></span>
+<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>oceania_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Fiji"</span>, <span class="st">"Kiribati"</span>, <span class="st">"Marshall Islands"</span>, </span>
+<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Micronesia"</span>, <span class="st">"Nauru"</span>, <span class="st">"New Zealand"</span>, <span class="st">"Palau"</span>, <span class="st">"Papua New Guinea"</span>, </span>
+<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Samoa"</span>, <span class="st">"Solomon Islands"</span>, <span class="st">"Tonga"</span>, <span class="st">"Tuvalu"</span>, <span class="st">"Vanuatu"</span>))</span>
+<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Output example usage</span></span>
+<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(asia_countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] Afghanistan          Armenia              Azerbaijan          
+ [4] Bahrain              Bangladesh           Bhutan              
+ [7] Brunei               Cambodia             China               
+[10] Georgia              India                Indonesia           
+[13] Iran                 Iraq                 Israel              
+[16] Japan                Jordan               Kazakhstan          
+[19] Kuwait               Kyrgyzstan           Laos                
+[22] Lebanon              Malaysia             Maldives            
+[25] Mongolia             Myanmar              Nepal               
+[28] North Korea          Oman                 Pakistan            
+[31] Palestine            Philippines          Qatar               
+[34] Saudi Arabia         Singapore            South Korea         
+[37] Sri Lanka            Syria                Tajikistan          
+[40] Thailand             Timor-Leste          Turkey              
+[43] Turkmenistan         United Arab Emirates Uzbekistan          
+[46] Vietnam              Yemen               
+47 Levels: Afghanistan Armenia Azerbaijan Bahrain Bangladesh Bhutan ... Yemen</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(africa_countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> [1] Angola                           Algeria                         
+ [3] Benin                            Botswana                        
+ [5] Burkina Faso                     Burundi                         
+ [7] Cabo Verde                       Cameroon                        
+ [9] Central African Republic         Chad                            
+[11] Comoros                          Democratic Republic of the Congo
+[13] Djibouti                         Egypt                           
+[15] Equatorial Guinea                Eritrea                         
+[17] Eswatini                         Ethiopia                        
+[19] Gabon                            Gambia                          
+[21] Ghana                            Guinea                          
+[23] Guinea-Bissau                    Ivory Coast                     
+[25] Kenya                            Lesotho                         
+[27] Liberia                          Libya                           
+[29] Madagascar                       Malawi                          
+[31] Mali                             Mauritania                      
+[33] Mauritius                        Morocco                         
+[35] Mozambique                       Namibia                         
+[37] Niger                            Nigeria                         
+[39] Republic of the Congo            Rwanda                          
+[41] Sao Tome and Principe            Senegal                         
+[43] Seychelles                       Sierra Leone                    
+[45] Somalia                          South Africa                    
+[47] South Sudan                      Sudan                           
+[49] Tanzania                         Togo                            
+[51] Tunisia                          Uganda                          
+[53] Zambia                           Zimbabwe                        
+54 Levels: Algeria Angola Benin Botswana Burkina Faso Burundi ... Zimbabwe</code></pre>
+</div>
+</div>
+</section>
 
 </main>
 <!-- /main column -->
