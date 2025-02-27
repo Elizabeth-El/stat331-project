@@ -5,6 +5,34 @@ format: html
 editor: visual
 ---
 
+## Write Up
+
+**Detailed data and variable description**
+
+The gdp_data data set contains data on the gross domestic product per person adjusted for differences in purchasing power, in international dollars and fixed at 2017 prices. The “international dollars” currency is adjusted for Purchasing Power Parity (PPP) and is a virtual currency that enables better comparisons that allow us to compare what a dollar would buy in each country (a comparable amount of goods and services) as a U.S. dollar would buy in the United States. Additionally, GDP per capita is the gross domestic product divided by the population of the country, which gives us a rough estimate of the average annual income of the citizens. The gdp_data data set contains a “country” variable which has the names of each country, and the GDP per capita for each of the countries in the data set from the year 1800 to 2022.
+
+The life_expectancy_data data set contains data on life expectancy at birth in total number of years. Life expectancy at birth can be defined as the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. This data set also contains a “country” variable and the life expectancy at birth value for each country in the data set for every year from 1960 to 2022.
+
+**Hypothesized relationship between the variables (and any outside references)**
+
+Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (Shafi). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy. Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off. This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.
+
+**Discussion of data cleaning process and decisions**
+
+The first phase in cleaning the data was to merge the two data sets. This was done by pivoting both the GDP and Life Expectancy data sets to a long form so that every row contained a country, year, and either the GDP or life expectancy measurement. From there, merging the two sets required only an inner join by both country and year. This stage also included standardizing the syntax of the variables so that any observation where “k” had been used to indicate 1,000 was simply written in numeric form. Additionally, we removed the “X” value that preceded the values in the Year variable for both data sets.
+
+The second phase of cleaning the data was removing unwanted observations. After 2022, the data set reported predicted values for GDP so those were dropped from the clean data set. Additionally, the observations prior to 1960 were also removed due to not having any measurements for life expectancy prior to that date.
+
+**Works Cited**
+
+Shafi, Rafia, and Samreen Fatima. 2019. "Relationship between GDP, Life Expectancy and Growth Rate of G7 Countries." International Journal of Sciences 8 (6): 74–79.
+
+Shah, Syed R., Mohammad N. Akram, and S. Alvi. 2023. "A New Perspective of Economic Development and Human Development in the Context of Aging." International Journal of Health Sciences and Research 13 (2): 145–152. https://pmc.ncbi.nlm.nih.gov/articles/PMC11171643/#:\~:text=According%20to%20our%20model%2C%20a,by%200.088%20years%20on%20average.
+
+Georgia Tech. 2023. "Effects of Urbanization on Sustainability in Major Cities." Georgia Institute of Technology. Accessed February 27, 2025. https://repository.gatech.edu/server/api/core/bitstreams/59ce2b2a-1620-4343-997f-76a0e81d539c/content.
+
+## Data Cleaning
+
 ```{r}
 # Loading in libraries
 library(tidyverse)
