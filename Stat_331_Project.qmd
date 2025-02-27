@@ -49,7 +49,7 @@ life_expectancy_data <- read.csv("sp_dyn_le00_in.csv")
 
 #### Pivoting GDP to long
 ```{r}
-# Pivoting GDP to long
+# Pivoting GDP to long data
 gdp_long <- gdp_data |>
   select(country, X1960:X2022) |> 
   pivot_longer(cols = X1960:X2022,
