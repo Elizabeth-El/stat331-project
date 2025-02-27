@@ -42,12 +42,14 @@ library(readr)
 ```
 
 #### Loading in data
+
 ```{r}
 gdp_data <- read.csv("gdp_pcap.csv")
 life_expectancy_data <- read.csv("sp_dyn_le00_in.csv")
 ```
 
 #### Pivoting GDP to long
+
 ```{r}
 # Pivoting GDP to long data
 gdp_long <- gdp_data |>
@@ -64,6 +66,7 @@ gdp_long <- gdp_data |>
 ```
 
 #### Pivoting life expectancy to long
+
 ```{r}
 life_expectancy_long <- life_expectancy_data |>
   pivot_longer(cols = X1960:X2022, 
@@ -73,6 +76,7 @@ life_expectancy_long <- life_expectancy_data |>
 ```
 
 #### Joining life and gdp data
+
 ```{r}
 combined_data <- gdp_long |>
   inner_join(life_expectancy_long, join_by(country, Year))
