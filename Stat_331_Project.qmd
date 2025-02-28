@@ -164,6 +164,7 @@ combined_data <- combined_data %>%
 ```
 
 ```{r}
+#| code-fold: true
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) +
   geom_smooth(method = "lm", color = "red", se = FALSE) +
@@ -174,6 +175,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`)) +
   theme_bw() 
 ```
 ```{r}
+#| code-fold: true
 ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = continent)) +
   geom_smooth(method = "lm", aes(group = continent), se = FALSE) +  # Separate regression line for each country
   labs(
@@ -182,4 +184,43 @@ ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = c
     y = "Life Expectancy"
   ) + 
   theme_bw() 
+```
+```{r}
+library(av)
+library(gganimate)
+```
+```{r}
+combined_data_graph <- combined_data %>%
+  filter(!is.na(`GDP per Capita`) & !is.na(`Life Expectancy`)) %>%
+  mutate(
+    `GDP per Capita` = as.numeric(`GDP per Capita`),
+    `Life Expectancy` = as.numeric(`Life Expectancy`)
+  )
+```
+
+```{r}
+#| code-fold: true
+combined_data_avg <- combined_data_graph %>%
+  group_by(Year, continent) %>%
+  summarise(
+    avg_life_expectancy = mean(`Life Expectancy`, na.rm = TRUE),
+    avg_gdp_per_capita = mean(`GDP per Capita`, na.rm = TRUE)
+  )
+
+# Plot the graph
+ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita, size = avg_life_expectancy, color = continent)) +
+  geom_point(alpha = 0.7) +
+  scale_size_continuous(range = c(1, 5)) + # Adjust bubble size
+  labs(
+    title = "Average Life Expectancy vs Year with Bubble Size as Average GDP per Capita",
+    subtitle = "Size of bubble represents average GDP per Capita",
+    x = "Year",
+    y = "Average Life Expectancy"
+  ) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_color_manual(values = c("blue", "green", "red", "yellow", "purple", "orange", "pink"))
+
+# View animation by uncommenting
+ # animate(p, nframes = 100, fps = 10) 
 ```
