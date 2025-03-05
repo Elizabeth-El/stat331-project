@@ -152,7 +152,10 @@ window.Quarto = {
 <section id="loading-in-libraries" class="level4">
 <h4 class="anchored" data-anchor-id="loading-in-libraries">Loading in libraries</h4>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 ✔ dplyr     1.1.4     ✔ readr     2.1.5
@@ -165,167 +168,145 @@ window.Quarto = {
 ✖ dplyr::lag()    masks stats::lag()
 ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
 </div>
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(readr)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(av)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'av' was built under R version 4.4.3</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gganimate' was built under R version 4.4.3</code></pre>
+</div>
 </div>
 </section>
 <section id="loading-in-data" class="level4">
 <h4 class="anchored" data-anchor-id="loading-in-data">Loading in data</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>gdp_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"gdp_pcap.csv"</span>)</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>life_expectancy_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sp_dyn_le00_in.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>gdp_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"gdp_pcap.csv"</span>)</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>life_expectancy_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">"sp_dyn_le00_in.csv"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="pivoting-gdp-to-long" class="level4">
 <h4 class="anchored" data-anchor-id="pivoting-gdp-to-long">Pivoting GDP to long</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivoting GDP to long data</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>gdp_long <span class="ot">&lt;-</span> gdp_data <span class="sc">|&gt;</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, X1960<span class="sc">:</span>X2022) <span class="sc">|&gt;</span> </span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> X1960<span class="sc">:</span>X2022,</span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Year"</span>,</span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"GDP per Capita"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(<span class="fu">str_remove</span>(Year, <span class="st">"^X"</span>)),</span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">case_when</span>(</span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>, <span class="st">"k"</span>) <span class="sc">~</span> <span class="fu">parse_number</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">1000</span>,</span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">parse_number</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>)))</span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Only selecting 1960-2022 to match life expectancy and not include predicted GDP after 2022</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pivoting GDP to long data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>gdp_long <span class="ot">&lt;-</span> gdp_data <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(country, X1960<span class="sc">:</span>X2022) <span class="sc">|&gt;</span> </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> X1960<span class="sc">:</span>X2022,</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Year"</span>,</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"GDP per Capita"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">Year =</span> <span class="fu">as.integer</span>(<span class="fu">str_remove</span>(Year, <span class="st">"^X"</span>)),</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">case_when</span>(</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">str_detect</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>, <span class="st">"k"</span>) <span class="sc">~</span> <span class="fu">parse_number</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>) <span class="sc">*</span> <span class="dv">1000</span>,</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="fu">parse_number</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>)))</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Only selecting 1960-2022 to match life expectancy and not include predicted GDP after 2022</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="pivoting-life-expectancy-to-long" class="level4">
 <h4 class="anchored" data-anchor-id="pivoting-life-expectancy-to-long">Pivoting life expectancy to long</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>life_expectancy_long <span class="ot">&lt;-</span> life_expectancy_data <span class="sc">|&gt;</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> X1960<span class="sc">:</span>X2022, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Year"</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">|&gt;</span></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(<span class="fu">str_remove</span>(Year, <span class="st">"^X"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>life_expectancy_long <span class="ot">&lt;-</span> life_expectancy_data <span class="sc">|&gt;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_longer</span>(<span class="at">cols =</span> X1960<span class="sc">:</span>X2022, </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">names_to =</span> <span class="st">"Year"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">values_to =</span> <span class="st">"Life Expectancy"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Year =</span> <span class="fu">as.integer</span>(<span class="fu">str_remove</span>(Year, <span class="st">"^X"</span>)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 <section id="joining-life-and-gdp-data" class="level4">
 <h4 class="anchored" data-anchor-id="joining-life-and-gdp-data">Joining life and gdp data</h4>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> gdp_long <span class="sc">|&gt;</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(life_expectancy_long, <span class="fu">join_by</span>(country, Year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> gdp_long <span class="sc">|&gt;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">inner_join</span>(life_expectancy_long, <span class="fu">join_by</span>(country, Year))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 </section>
 </section>
 <section id="modeling-and-graphing" class="level2">
 <h2 class="anchored" data-anchor-id="modeling-and-graphing">Modeling and Graphing</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define country vectors by continent</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT to format this (https://chatgpt.com/share/67c0f690-5020-8004-b149-ef2bae1b914e)</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Asia</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>asia_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Afghanistan"</span>, <span class="st">"Armenia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Bangladesh"</span>, </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Bhutan"</span>, <span class="st">"Brunei"</span>, <span class="st">"Cambodia"</span>, <span class="st">"China"</span>, <span class="st">"Georgia"</span>, <span class="st">"India"</span>, </span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Indonesia"</span>, <span class="st">"Iran"</span>, <span class="st">"Iraq"</span>, <span class="st">"Israel"</span>, <span class="st">"Japan"</span>, <span class="st">"Jordan"</span>, </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Kazakhstan"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Laos"</span>, <span class="st">"Lebanon"</span>, </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Malaysia"</span>, <span class="st">"Maldives"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Nepal"</span>, </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"North Korea"</span>, <span class="st">"Oman"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Palestine"</span>, <span class="st">"Philippines"</span>, </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Singapore"</span>, <span class="st">"South Korea"</span>, <span class="st">"Sri Lanka"</span>, </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Syria"</span>, <span class="st">"Tajikistan"</span>, <span class="st">"Thailand"</span>, <span class="st">"Timor-Leste"</span>, <span class="st">"Turkey"</span>, </span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Turkmenistan"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Vietnam"</span>, <span class="st">"Yemen"</span>))</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Africa</span></span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>africa_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Angola"</span>, <span class="st">"Algeria"</span>, <span class="st">"Benin"</span>, <span class="st">"Botswana"</span>, <span class="st">"Burkina Faso"</span>, </span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Burundi"</span>, <span class="st">"Cabo Verde"</span>, <span class="st">"Cameroon"</span>, <span class="st">"Central African Republic"</span>, </span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Chad"</span>, <span class="st">"Comoros"</span>, <span class="st">"Democratic Republic of the Congo"</span>, </span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Djibouti"</span>, <span class="st">"Egypt"</span>, <span class="st">"Equatorial Guinea"</span>, <span class="st">"Eritrea"</span>, <span class="st">"Eswatini"</span>, </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ethiopia"</span>, <span class="st">"Gabon"</span>, <span class="st">"Gambia"</span>, <span class="st">"Ghana"</span>, <span class="st">"Guinea"</span>, <span class="st">"Guinea-Bissau"</span>, </span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ivory Coast"</span>, <span class="st">"Kenya"</span>, <span class="st">"Lesotho"</span>, <span class="st">"Liberia"</span>, <span class="st">"Libya"</span>, </span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Madagascar"</span>, <span class="st">"Malawi"</span>, <span class="st">"Mali"</span>, <span class="st">"Mauritania"</span>, <span class="st">"Mauritius"</span>, </span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Morocco"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Niger"</span>, <span class="st">"Nigeria"</span>, </span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Republic of the Congo"</span>, <span class="st">"Rwanda"</span>, <span class="st">"Sao Tome and Principe"</span>, </span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Senegal"</span>, <span class="st">"Seychelles"</span>, <span class="st">"Sierra Leone"</span>, <span class="st">"Somalia"</span>, <span class="st">"South Africa"</span>, </span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"South Sudan"</span>, <span class="st">"Sudan"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Togo"</span>, <span class="st">"Tunisia"</span>, <span class="st">"Uganda"</span>, </span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Zambia"</span>, <span class="st">"Zimbabwe"</span>))</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Europe</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>europe_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Albania"</span>, <span class="st">"Andorra"</span>, <span class="st">"Austria"</span>, <span class="st">"Belarus"</span>, <span class="st">"Belgium"</span>, </span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Bulgaria"</span>, <span class="st">"Croatia"</span>, <span class="st">"Cyprus"</span>, </span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Czech Republic"</span>, <span class="st">"Denmark"</span>, <span class="st">"Estonia"</span>, <span class="st">"Finland"</span>, <span class="st">"France"</span>, </span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Germany"</span>, <span class="st">"Greece"</span>, <span class="st">"Hungary"</span>, <span class="st">"Iceland"</span>, <span class="st">"Ireland"</span>, <span class="st">"Italy"</span>, </span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Latvia"</span>, <span class="st">"Liechtenstein"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"Malta"</span>, </span>
-<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Moldova"</span>, <span class="st">"Monaco"</span>, <span class="st">"Montenegro"</span>, <span class="st">"Netherlands"</span>, <span class="st">"North Macedonia"</span>, </span>
-<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Norway"</span>, <span class="st">"Poland"</span>, <span class="st">"Portugal"</span>, <span class="st">"Romania"</span>, <span class="st">"Russia"</span>, <span class="st">"San Marino"</span>, </span>
-<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Serbia"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Slovenia"</span>, <span class="st">"Spain"</span>, <span class="st">"Sweden"</span>, <span class="st">"Switzerland"</span>, </span>
-<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ukraine"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Vatican City"</span>))</span>
-<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a><span class="co"># North America</span></span>
-<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>north_america_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Antigua and Barbuda"</span>, <span class="st">"Bahamas"</span>, <span class="st">"Barbados"</span>, <span class="st">"Belize"</span>, </span>
-<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"Cuba"</span>, <span class="st">"Dominica"</span>, </span>
-<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Dominican Republic"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Grenada"</span>, </span>
-<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Guatemala"</span>, <span class="st">"Haiti"</span>, <span class="st">"Honduras"</span>, <span class="st">"Jamaica"</span>, <span class="st">"Mexico"</span>, </span>
-<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Nicaragua"</span>, <span class="st">"Panama"</span>, <span class="st">"Saint Kitts and Nevis"</span>, </span>
-<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Saint Lucia"</span>, <span class="st">"Saint Vincent and the Grenadines"</span>, </span>
-<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Trinidad and Tobago"</span>, <span class="st">"United States"</span>))</span>
-<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a><span class="co"># South America</span></span>
-<span id="cb8-50"><a href="#cb8-50" aria-hidden="true" tabindex="-1"></a>south_america_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Argentina"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Brazil"</span>, <span class="st">"Chile"</span>, <span class="st">"Colombia"</span>, </span>
-<span id="cb8-51"><a href="#cb8-51" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Ecuador"</span>, <span class="st">"Guyana"</span>, <span class="st">"Paraguay"</span>, <span class="st">"Peru"</span>, <span class="st">"Suriname"</span>, </span>
-<span id="cb8-52"><a href="#cb8-52" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Uruguay"</span>, <span class="st">"Venezuela"</span>))</span>
-<span id="cb8-53"><a href="#cb8-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-54"><a href="#cb8-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Oceania</span></span>
-<span id="cb8-55"><a href="#cb8-55" aria-hidden="true" tabindex="-1"></a>oceania_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Fiji"</span>, <span class="st">"Kiribati"</span>, <span class="st">"Marshall Islands"</span>, </span>
-<span id="cb8-56"><a href="#cb8-56" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Micronesia"</span>, <span class="st">"Nauru"</span>, <span class="st">"New Zealand"</span>, <span class="st">"Palau"</span>, <span class="st">"Papua New Guinea"</span>, </span>
-<span id="cb8-57"><a href="#cb8-57" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Samoa"</span>, <span class="st">"Solomon Islands"</span>, <span class="st">"Tonga"</span>, <span class="st">"Tuvalu"</span>, <span class="st">"Vanuatu"</span>))</span>
-<span id="cb8-58"><a href="#cb8-58" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-59"><a href="#cb8-59" aria-hidden="true" tabindex="-1"></a><span class="co"># Output example usage</span></span>
-<span id="cb8-60"><a href="#cb8-60" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(asia_countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] Afghanistan          Armenia              Azerbaijan          
- [4] Bahrain              Bangladesh           Bhutan              
- [7] Brunei               Cambodia             China               
-[10] Georgia              India                Indonesia           
-[13] Iran                 Iraq                 Israel              
-[16] Japan                Jordan               Kazakhstan          
-[19] Kuwait               Kyrgyzstan           Laos                
-[22] Lebanon              Malaysia             Maldives            
-[25] Mongolia             Myanmar              Nepal               
-[28] North Korea          Oman                 Pakistan            
-[31] Palestine            Philippines          Qatar               
-[34] Saudi Arabia         Singapore            South Korea         
-[37] Sri Lanka            Syria                Tajikistan          
-[40] Thailand             Timor-Leste          Turkey              
-[43] Turkmenistan         United Arab Emirates Uzbekistan          
-[46] Vietnam              Yemen               
-47 Levels: Afghanistan Armenia Azerbaijan Bahrain Bangladesh Bhutan ... Yemen</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(africa_countries)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code> [1] Angola                           Algeria                         
- [3] Benin                            Botswana                        
- [5] Burkina Faso                     Burundi                         
- [7] Cabo Verde                       Cameroon                        
- [9] Central African Republic         Chad                            
-[11] Comoros                          Democratic Republic of the Congo
-[13] Djibouti                         Egypt                           
-[15] Equatorial Guinea                Eritrea                         
-[17] Eswatini                         Ethiopia                        
-[19] Gabon                            Gambia                          
-[21] Ghana                            Guinea                          
-[23] Guinea-Bissau                    Ivory Coast                     
-[25] Kenya                            Lesotho                         
-[27] Liberia                          Libya                           
-[29] Madagascar                       Malawi                          
-[31] Mali                             Mauritania                      
-[33] Mauritius                        Morocco                         
-[35] Mozambique                       Namibia                         
-[37] Niger                            Nigeria                         
-[39] Republic of the Congo            Rwanda                          
-[41] Sao Tome and Principe            Senegal                         
-[43] Seychelles                       Sierra Leone                    
-[45] Somalia                          South Africa                    
-[47] South Sudan                      Sudan                           
-[49] Tanzania                         Togo                            
-[51] Tunisia                          Uganda                          
-[53] Zambia                           Zimbabwe                        
-54 Levels: Algeria Angola Benin Botswana Burkina Faso Burundi ... Zimbabwe</code></pre>
-</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define country vectors by continent</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Used ChatGPT to format this (https://chatgpt.com/share/67c0f690-5020-8004-b149-ef2bae1b914e)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Asia</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>asia_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Afghanistan"</span>, <span class="st">"Armenia"</span>, <span class="st">"Azerbaijan"</span>, <span class="st">"Bahrain"</span>, <span class="st">"Bangladesh"</span>, </span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Bhutan"</span>, <span class="st">"Brunei"</span>, <span class="st">"Cambodia"</span>, <span class="st">"China"</span>, <span class="st">"Georgia"</span>, <span class="st">"India"</span>, </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Indonesia"</span>, <span class="st">"Iran"</span>, <span class="st">"Iraq"</span>, <span class="st">"Israel"</span>, <span class="st">"Japan"</span>, <span class="st">"Jordan"</span>, </span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Kazakhstan"</span>, <span class="st">"Kuwait"</span>, <span class="st">"Kyrgyzstan"</span>, <span class="st">"Laos"</span>, <span class="st">"Lebanon"</span>, </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Malaysia"</span>, <span class="st">"Maldives"</span>, <span class="st">"Mongolia"</span>, <span class="st">"Myanmar"</span>, <span class="st">"Nepal"</span>, </span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"North Korea"</span>, <span class="st">"Oman"</span>, <span class="st">"Pakistan"</span>, <span class="st">"Palestine"</span>, <span class="st">"Philippines"</span>, </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Qatar"</span>, <span class="st">"Saudi Arabia"</span>, <span class="st">"Singapore"</span>, <span class="st">"South Korea"</span>, <span class="st">"Sri Lanka"</span>, </span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Syria"</span>, <span class="st">"Tajikistan"</span>, <span class="st">"Thailand"</span>, <span class="st">"Timor-Leste"</span>, <span class="st">"Turkey"</span>, </span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a>                           <span class="st">"Turkmenistan"</span>, <span class="st">"United Arab Emirates"</span>, <span class="st">"Uzbekistan"</span>, <span class="st">"Vietnam"</span>, <span class="st">"Yemen"</span>))</span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Africa</span></span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a>africa_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Angola"</span>, <span class="st">"Algeria"</span>, <span class="st">"Benin"</span>, <span class="st">"Botswana"</span>, <span class="st">"Burkina Faso"</span>, </span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Burundi"</span>, <span class="st">"Cabo Verde"</span>, <span class="st">"Cameroon"</span>, <span class="st">"Central African Republic"</span>, </span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Chad"</span>, <span class="st">"Comoros"</span>, <span class="st">"Democratic Republic of the Congo"</span>, </span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Djibouti"</span>, <span class="st">"Egypt"</span>, <span class="st">"Equatorial Guinea"</span>, <span class="st">"Eritrea"</span>, <span class="st">"Eswatini"</span>, </span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ethiopia"</span>, <span class="st">"Gabon"</span>, <span class="st">"Gambia"</span>, <span class="st">"Ghana"</span>, <span class="st">"Guinea"</span>, <span class="st">"Guinea-Bissau"</span>, </span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ivory Coast"</span>, <span class="st">"Kenya"</span>, <span class="st">"Lesotho"</span>, <span class="st">"Liberia"</span>, <span class="st">"Libya"</span>, </span>
+<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Madagascar"</span>, <span class="st">"Malawi"</span>, <span class="st">"Mali"</span>, <span class="st">"Mauritania"</span>, <span class="st">"Mauritius"</span>, </span>
+<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Morocco"</span>, <span class="st">"Mozambique"</span>, <span class="st">"Namibia"</span>, <span class="st">"Niger"</span>, <span class="st">"Nigeria"</span>, </span>
+<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Republic of the Congo"</span>, <span class="st">"Rwanda"</span>, <span class="st">"Sao Tome and Principe"</span>, </span>
+<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Senegal"</span>, <span class="st">"Seychelles"</span>, <span class="st">"Sierra Leone"</span>, <span class="st">"Somalia"</span>, <span class="st">"South Africa"</span>, </span>
+<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"South Sudan"</span>, <span class="st">"Sudan"</span>, <span class="st">"Tanzania"</span>, <span class="st">"Togo"</span>, <span class="st">"Tunisia"</span>, <span class="st">"Uganda"</span>, </span>
+<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Zambia"</span>, <span class="st">"Zimbabwe"</span>))</span>
+<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co"># Europe</span></span>
+<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a>europe_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Albania"</span>, <span class="st">"Andorra"</span>, <span class="st">"Austria"</span>, <span class="st">"Belarus"</span>, <span class="st">"Belgium"</span>, </span>
+<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Bosnia and Herzegovina"</span>, <span class="st">"Bulgaria"</span>, <span class="st">"Croatia"</span>, <span class="st">"Cyprus"</span>, </span>
+<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Czech Republic"</span>, <span class="st">"Denmark"</span>, <span class="st">"Estonia"</span>, <span class="st">"Finland"</span>, <span class="st">"France"</span>, </span>
+<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Germany"</span>, <span class="st">"Greece"</span>, <span class="st">"Hungary"</span>, <span class="st">"Iceland"</span>, <span class="st">"Ireland"</span>, <span class="st">"Italy"</span>, </span>
+<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Latvia"</span>, <span class="st">"Liechtenstein"</span>, <span class="st">"Lithuania"</span>, <span class="st">"Luxembourg"</span>, <span class="st">"Malta"</span>, </span>
+<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Moldova"</span>, <span class="st">"Monaco"</span>, <span class="st">"Montenegro"</span>, <span class="st">"Netherlands"</span>, <span class="st">"North Macedonia"</span>, </span>
+<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Norway"</span>, <span class="st">"Poland"</span>, <span class="st">"Portugal"</span>, <span class="st">"Romania"</span>, <span class="st">"Russia"</span>, <span class="st">"San Marino"</span>, </span>
+<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Serbia"</span>, <span class="st">"Slovakia"</span>, <span class="st">"Slovenia"</span>, <span class="st">"Spain"</span>, <span class="st">"Sweden"</span>, <span class="st">"Switzerland"</span>, </span>
+<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a>                             <span class="st">"Ukraine"</span>, <span class="st">"United Kingdom"</span>, <span class="st">"Vatican City"</span>))</span>
+<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co"># North America</span></span>
+<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a>north_america_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Antigua and Barbuda"</span>, <span class="st">"Bahamas"</span>, <span class="st">"Barbados"</span>, <span class="st">"Belize"</span>, </span>
+<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Canada"</span>, <span class="st">"Costa Rica"</span>, <span class="st">"Cuba"</span>, <span class="st">"Dominica"</span>, </span>
+<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Dominican Republic"</span>, <span class="st">"El Salvador"</span>, <span class="st">"Grenada"</span>, </span>
+<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Guatemala"</span>, <span class="st">"Haiti"</span>, <span class="st">"Honduras"</span>, <span class="st">"Jamaica"</span>, <span class="st">"Mexico"</span>, </span>
+<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Nicaragua"</span>, <span class="st">"Panama"</span>, <span class="st">"Saint Kitts and Nevis"</span>, </span>
+<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Saint Lucia"</span>, <span class="st">"Saint Vincent and the Grenadines"</span>, </span>
+<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Trinidad and Tobago"</span>, <span class="st">"United States"</span>))</span>
+<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co"># South America</span></span>
+<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a>south_america_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Argentina"</span>, <span class="st">"Bolivia"</span>, <span class="st">"Brazil"</span>, <span class="st">"Chile"</span>, <span class="st">"Colombia"</span>, </span>
+<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Ecuador"</span>, <span class="st">"Guyana"</span>, <span class="st">"Paraguay"</span>, <span class="st">"Peru"</span>, <span class="st">"Suriname"</span>, </span>
+<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a>                                     <span class="st">"Uruguay"</span>, <span class="st">"Venezuela"</span>))</span>
+<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="co"># Oceania</span></span>
+<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a>oceania_countries <span class="ot">&lt;-</span> <span class="fu">factor</span>(<span class="fu">c</span>(<span class="st">"Australia"</span>, <span class="st">"Fiji"</span>, <span class="st">"Kiribati"</span>, <span class="st">"Marshall Islands"</span>, </span>
+<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Micronesia"</span>, <span class="st">"Nauru"</span>, <span class="st">"New Zealand"</span>, <span class="st">"Palau"</span>, <span class="st">"Papua New Guinea"</span>, </span>
+<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a>                              <span class="st">"Samoa"</span>, <span class="st">"Solomon Islands"</span>, <span class="st">"Tonga"</span>, <span class="st">"Tuvalu"</span>, <span class="st">"Vanuatu"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>combined_data <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">continent =</span> <span class="fu">case_when</span>(</span>
@@ -338,6 +319,7 @@ window.Quarto = {
 <span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>      <span class="cn">TRUE</span> <span class="sc">~</span> <span class="st">"Other"</span>  <span class="co"># For countries not in any of the continent lists</span></span>
 <span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    )</span>
 <span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <details class="code-fold">
@@ -398,32 +380,25 @@ window.Quarto = {
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(av)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'av' was built under R version 4.4.3</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Warning: package 'gganimate' was built under R version 4.4.3</code></pre>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>combined_data_graph <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>),</span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>)</span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>combined_data_graph <span class="ot">&lt;-</span> combined_data <span class="sc">%&gt;%</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>),</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">as.numeric</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>)</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 </div>
 <div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>combined_data_avg <span class="ot">&lt;-</span> combined_data_graph <span class="sc">%&gt;%</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, continent) <span class="sc">%&gt;%</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_life_expectancy =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_gdp_per_capita =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>combined_data_avg <span class="ot">&lt;-</span> combined_data_graph <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Year, continent) <span class="sc">%&gt;%</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_life_expectancy =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">avg_gdp_per_capita =</span> <span class="fu">mean</span>(<span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'Year'. You can override using the
@@ -431,63 +406,52 @@ window.Quarto = {
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the graph</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined_data_avg, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> avg_gdp_per_capita, <span class="at">size =</span> avg_life_expectancy, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">+</span> <span class="co"># Adjust bubble size</span></span>
-<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Life Expectancy vs Year with Bubble Size as Average GDP per Capita"</span>,</span>
-<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Size of bubble represents average GDP per Capita"</span>,</span>
-<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
-<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Life Expectancy"</span></span>
-<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
-<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
-<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>, <span class="st">"yellow"</span>, <span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot the graph</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(combined_data_avg, <span class="fu">aes</span>(<span class="at">x =</span> Year, <span class="at">y =</span> avg_gdp_per_capita, <span class="at">size =</span> avg_life_expectancy, <span class="at">color =</span> continent)) <span class="sc">+</span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_size_continuous</span>(<span class="at">range =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">5</span>)) <span class="sc">+</span> <span class="co"># Adjust bubble size</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Average Life Expectancy vs Year with Bubble Size as Average GDP per Capita"</span>,</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">subtitle =</span> <span class="st">"Size of bubble represents average GDP per Capita"</span>,</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Year"</span>,</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Average Life Expectancy"</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">axis.text.x =</span> <span class="fu">element_text</span>(<span class="at">angle =</span> <span class="dv">45</span>, <span class="at">hjust =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
+<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"blue"</span>, <span class="st">"green"</span>, <span class="st">"red"</span>, <span class="st">"yellow"</span>, <span class="st">"purple"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="Stat_331_Project_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="Stat_331_Project_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 <details class="code-fold">
 <summary>Code</summary>
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View animation by uncommenting</span></span>
-<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># animate(p, nframes = 100, fps = 10) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># View animation by uncommenting</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a> <span class="co"># animate(p, nframes = 100, fps = 10) </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
 </section>
 <section id="regression-model" class="level2">
 <h2 class="anchored" data-anchor-id="regression-model">Regression Model</h2>
 <p><span class="math display">\[
-Y = \hat{\beta}_0 + \hat{\beta}_{GDP}x
+Y = {\beta}_0 + {\beta}_{1}x
 \]</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>gdp_regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>,</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> combined_data)</span>
-<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gdp_regression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>gdp_regression <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="st">`</span><span class="at">Life Expectancy</span><span class="st">`</span> <span class="sc">~</span> <span class="st">`</span><span class="at">GDP per Capita</span><span class="st">`</span>,</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>                     <span class="at">data =</span> combined_data)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>broom<span class="sc">::</span><span class="fu">tidy</span>(gdp_regression)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
 <div class="cell-output cell-output-stdout">
-<pre><code>
-Call:
-lm(formula = `Life Expectancy` ~ `GDP per Capita`, data = combined_data)
-
-Residuals:
-    Min      1Q  Median      3Q     Max 
--50.501  -5.109   2.550   6.808  16.046 
-
-Coefficients:
-                  Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)      5.877e+01  1.077e-01  545.63   &lt;2e-16 ***
-`GDP per Capita` 4.042e-04  5.158e-06   78.37   &lt;2e-16 ***
----
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Residual standard error: 9.223 on 11918 degrees of freedom
-  (113 observations deleted due to missingness)
-Multiple R-squared:  0.3401,    Adjusted R-squared:   0.34 
-F-statistic:  6142 on 1 and 11918 DF,  p-value: &lt; 2.2e-16</code></pre>
+<pre><code># A tibble: 2 × 5
+  term              estimate  std.error statistic p.value
+  &lt;chr&gt;                &lt;dbl&gt;      &lt;dbl&gt;     &lt;dbl&gt;   &lt;dbl&gt;
+1 (Intercept)      58.8      0.108          546.        0
+2 `GDP per Capita`  0.000404 0.00000516      78.4       0</code></pre>
 </div>
 </div>
 <p><span class="math display">\[

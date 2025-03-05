@@ -36,14 +36,18 @@ Georgia Tech. 2023. "Effects of Urbanization on Sustainability in Major Cities."
 #### Loading in libraries
 
 ```{r}
+#| code-fold: true
 library(tidyverse)
 library(knitr)
 library(readr)
+library(av)
+library(gganimate)
 ```
 
 #### Loading in data
 
 ```{r}
+#| code-fold: true
 gdp_data <- read.csv("gdp_pcap.csv")
 life_expectancy_data <- read.csv("sp_dyn_le00_in.csv")
 ```
@@ -51,6 +55,7 @@ life_expectancy_data <- read.csv("sp_dyn_le00_in.csv")
 #### Pivoting GDP to long
 
 ```{r}
+#| code-fold: true
 # Pivoting GDP to long data
 gdp_long <- gdp_data |>
   select(country, X1960:X2022) |> 
@@ -68,6 +73,7 @@ gdp_long <- gdp_data |>
 #### Pivoting life expectancy to long
 
 ```{r}
+#| code-fold: true
 life_expectancy_long <- life_expectancy_data |>
   pivot_longer(cols = X1960:X2022, 
                names_to = "Year",
@@ -78,6 +84,7 @@ life_expectancy_long <- life_expectancy_data |>
 #### Joining life and gdp data
 
 ```{r}
+#| code-fold: true
 combined_data <- gdp_long |>
   inner_join(life_expectancy_long, join_by(country, Year))
 ```
@@ -85,6 +92,7 @@ combined_data <- gdp_long |>
 ## Modeling and Graphing
 
 ```{r}
+#| code-fold: true
 # Define country vectors by continent
 # Used ChatGPT to format this (https://chatgpt.com/share/67c0f690-5020-8004-b149-ef2bae1b914e)
 
@@ -143,13 +151,10 @@ oceania_countries <- factor(c("Australia", "Fiji", "Kiribati", "Marshall Islands
                               "Micronesia", "Nauru", "New Zealand", "Palau", "Papua New Guinea", 
                               "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"))
 
-# Output example usage
-print(asia_countries)
-print(africa_countries)
-
 ```
 
 ```{r}
+#| code-fold: true
 combined_data <- combined_data %>%
   mutate(
     continent = case_when(
@@ -188,12 +193,9 @@ ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = c
   theme_bw() 
 ```
 
-```{r}
-library(av)
-library(gganimate)
-```
 
 ```{r}
+#| code-fold: true
 combined_data_graph <- combined_data %>%
   filter(!is.na(`GDP per Capita`) & !is.na(`Life Expectancy`)) %>%
   mutate(
@@ -232,13 +234,14 @@ ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita, size = avg_life_
 ## Regression Model
 
 $$
-Y = \hat{\beta}_0 + \hat{\beta}_{GDP}x
+Y = {\beta}_0 + {\beta}_{1}x
 $$
 
 ```{r}
+#| code-fold: true
 gdp_regression <- lm(`Life Expectancy` ~ `GDP per Capita`,
                      data = combined_data)
-summary(gdp_regression)
+broom::tidy(gdp_regression)
 ```
 
 $$
