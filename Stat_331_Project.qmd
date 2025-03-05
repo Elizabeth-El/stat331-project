@@ -193,7 +193,6 @@ ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = c
   theme_bw() 
 ```
 
-
 ```{r}
 #| code-fold: true
 combined_data_graph <- combined_data %>%
