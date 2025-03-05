@@ -148,6 +148,7 @@ print(asia_countries)
 print(africa_countries)
 
 ```
+
 ```{r}
 combined_data <- combined_data %>%
   mutate(
@@ -174,6 +175,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`)) +
     y = "Life Expectancy") + 
   theme_bw() 
 ```
+
 ```{r}
 #| code-fold: true
 ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = continent)) +
@@ -185,10 +187,12 @@ ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = c
   ) + 
   theme_bw() 
 ```
+
 ```{r}
 library(av)
 library(gganimate)
 ```
+
 ```{r}
 combined_data_graph <- combined_data %>%
   filter(!is.na(`GDP per Capita`) & !is.na(`Life Expectancy`)) %>%
@@ -224,3 +228,19 @@ ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita, size = avg_life_
 # View animation by uncommenting
  # animate(p, nframes = 100, fps = 10) 
 ```
+
+## Regression Model
+
+$$
+Y = \hat{\beta}_0 + \hat{\beta}_{GDP}x
+$$
+
+```{r}
+gdp_regression <- lm(`Life Expectancy` ~ `GDP per Capita`,
+                     data = combined_data)
+summary(gdp_regression)
+```
+
+$$
+\hat{y} = 58.77 + (4.042 * 10^{-4})x
+$$
