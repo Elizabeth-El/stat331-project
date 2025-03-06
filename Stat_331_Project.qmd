@@ -160,7 +160,7 @@ oceania_countries <- factor(c("Australia", "Fiji", "Kiribati", "Marshall Islands
 
 ```{r}
 #| code-fold: true
-combined_data <- combined_data %>%
+combined_data <- combined_data |> 
   mutate(
     continent = case_when(
       country %in% levels(asia_countries) ~ "Asia",
@@ -194,8 +194,8 @@ ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = c
 ```{r}
 #| code-fold: true
 # calculate averages for each region for visual comparison
-combined_data_avg <- combined_data %>%
-  group_by(Year, continent) %>%
+combined_data_avg <- combined_data |> 
+  group_by(Year, continent) |> 
   summarise(
     avg_life_expectancy = mean(`Life Expectancy`, na.rm = TRUE),
     avg_gdp_per_capita = mean(`GDP per Capita`, na.rm = TRUE)
@@ -233,7 +233,10 @@ $$
 #| code-fold: true
 gdp_regression <- lm(`Life Expectancy` ~ `GDP per Capita`,
                      data = combined_data)
-tidy(gdp_regression)
+tidy(gdp_regression) |> 
+  kable(caption = "Linear Regression Equation Information")
+glance(gdp_regression) |> 
+  kable(caption = "Linear Regression Fit Information")
 ```
 
 $$
