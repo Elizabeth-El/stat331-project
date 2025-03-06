@@ -177,7 +177,8 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`)) +
   labs(
     title = "Relationship Between GDP and Life Expectancy",
     x = "Log of GDP per Capita",
-    y = "Life Expectancy") + 
+    y = "Life Expectancy",
+    color = "Continent") + 
   theme_bw() 
 ```
 
