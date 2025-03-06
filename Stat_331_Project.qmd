@@ -231,7 +231,7 @@ $$
 
 ```{r}
 #| code-fold: true
-gdp_regression <- lm(`Life Expectancy` ~ `GDP per Capita`,
+gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
                      data = combined_data)
 tidy(gdp_regression) |> 
   kable(caption = "Linear Regression Equation Information")
