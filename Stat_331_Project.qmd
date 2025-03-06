@@ -42,6 +42,7 @@ library(knitr)
 library(readr)
 library(av)
 library(gganimate)
+library(broom)
 ```
 
 #### Loading in data
@@ -232,7 +233,7 @@ $$
 #| code-fold: true
 gdp_regression <- lm(`Life Expectancy` ~ `GDP per Capita`,
                      data = combined_data)
-broom::tidy(gdp_regression)
+tidy(gdp_regression)
 ```
 
 $$
