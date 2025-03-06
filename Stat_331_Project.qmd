@@ -91,6 +91,8 @@ combined_data <- gdp_long |>
 
 ## Modeling and Graphing
 
+#### Define Regions 
+
 ```{r}
 #| code-fold: true
 # Define country vectors by continent
@@ -153,6 +155,8 @@ oceania_countries <- factor(c("Australia", "Fiji", "Kiribati", "Marshall Islands
 
 ```
 
+#### Add Regions
+
 ```{r}
 #| code-fold: true
 combined_data <- combined_data %>%
@@ -166,26 +170,15 @@ combined_data <- combined_data %>%
       country %in% levels(oceania_countries) ~ "Oceania",
       TRUE ~ "Other"  # For countries not in any of the continent lists
     )
-  )
+)
 ```
 
-```{r}
-#| code-fold: true
-ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`)) +
-  geom_point(aes(color = continent), alpha = 0.7) +
-  geom_smooth(method = "lm", color = "red", se = FALSE) +
-  labs(
-    title = "Relationship Between GDP and Life Expectancy",
-    x = "Log of GDP per Capita",
-    y = "Life Expectancy",
-    color = "Continent") + 
-  theme_bw() 
-```
+#### GDP vs. Life Expectancy Plot
 
 ```{r}
 #| code-fold: true
 ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = continent)) +
-  geom_smooth(method = "lm", aes(group = continent), se = FALSE) +  # Separate regression line for each country
+  geom_smooth(method = "lm", aes(group = continent), se = FALSE) +  
   labs(
     title = "Relationship Between GDP and Life Expectancy by Country",
     x = "GDP per Capita",
@@ -195,42 +188,38 @@ ggplot(combined_data, aes(x = `GDP per Capita`, y = `Life Expectancy`, color = c
   theme_bw() 
 ```
 
-```{r}
-#| code-fold: true
-combined_data_graph <- combined_data %>%
-  filter(!is.na(`GDP per Capita`) & !is.na(`Life Expectancy`)) %>%
-  mutate(
-    `GDP per Capita` = as.numeric(`GDP per Capita`),
-    `Life Expectancy` = as.numeric(`Life Expectancy`)
-  )
-```
+#### GDP and Life Expectancy Over Time Animated Plot
 
 ```{r}
 #| code-fold: true
-combined_data_avg <- combined_data_graph %>%
+# calculate averages for each region for visual comparison
+combined_data_avg <- combined_data %>%
   group_by(Year, continent) %>%
   summarise(
     avg_life_expectancy = mean(`Life Expectancy`, na.rm = TRUE),
     avg_gdp_per_capita = mean(`GDP per Capita`, na.rm = TRUE)
   )
 
-# Plot the graph
-ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita, size = avg_life_expectancy, color = continent)) +
+
+p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita, 
+                                   size = avg_gdp_per_capita, color = continent)) +
   geom_point(alpha = 0.7) +
-  scale_size_continuous(range = c(1, 5)) + # Adjust bubble size
+  scale_size_continuous(range = c(1, 5)) + 
   labs(
-    title = "Average Life Expectancy vs Year with Bubble Size as Average GDP per Capita",
+    title = "Average GDP per Capita vs Year with Bubble Size as GDP per Capita",
     subtitle = "Size of bubble represents average GDP per Capita",
     x = "Year",
-    y = "Average Life Expectancy", 
-    color = "Continent"
+    y = "Average GDP per Capita"
   ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_color_manual(values = c("blue", "green", "red", "yellow", "purple", "orange", "pink"))
+  scale_color_brewer(palette = "Set2") +  
+  transition_time(Year) + 
+  shadow_mark() +  # Keeps all past years visible 
+  ease_aes('linear')  # Smooth transitions
 
-# View animation by uncommenting
- # animate(p, nframes = 100, fps = 10) 
+# Animate the plot
+animate(p, nframes = 100, fps = 10)
 ```
 
 ## Regression Model
