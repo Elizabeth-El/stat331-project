@@ -174,7 +174,17 @@ combined_data <- combined_data |>
 )
 ```
 
-#### GDP vs. Life Expectancy Plot
+#### GDP vs. Life Expectancy Plots
+
+```{r}
+#| code-fold: true
+ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
+  geom_point(aes(color = continent), alpha = 0.7) + 
+  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+  labs( title = "Relationship Between GDP and Life Expectancy", x = "Log of GDP per Capita", y = "Life Expectancy", color = "Continent") + 
+  theme_bw() +
+  facet_wrap(~continent)
+```
 
 ```{r}
 #| code-fold: true
