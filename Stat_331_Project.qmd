@@ -92,7 +92,7 @@ combined_data <- gdp_long |>
 
 ## Modeling and Graphing
 
-#### Define Regions 
+#### Define Regions
 
 ```{r}
 #| code-fold: true
@@ -203,12 +203,12 @@ combined_data_avg <- combined_data |>
 
 
 p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita, 
-                                   size = avg_gdp_per_capita, color = continent)) +
+                                   size = avg_life_expectancy, color = continent)) +
   geom_point(alpha = 0.7) +
   scale_size_continuous(range = c(1, 5)) + 
   labs(
     title = "Average GDP per Capita vs Year with Bubble Size as GDP per Capita",
-    subtitle = "Size of bubble represents average GDP per Capita",
+    subtitle = "Size of bubble represents average life expectancy",
     x = "Year",
     y = "Average GDP per Capita"
   ) +
