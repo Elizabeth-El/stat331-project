@@ -35,6 +35,10 @@ The first phase in cleaning the data was to merge the two data sets. This was do
 
 The second phase of cleaning the data was removing unwanted observations. After 2022, the data set reported predicted values for GDP so those were dropped from the clean data set. Additionally, the observations prior to 1960 were also removed due to not having any measurements for life expectancy prior to that date.
 
+**Discussion of Variance and Model Fit**
+
+To determine how much of the variability in Life Expectancy is accounted for by the regression model, we can calculate the proportion by dividing the Variance in Fitted Values by the Variance in Response: 80.58912 / 128.89231 ≈ 0.6253. This tells us that 62.53% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining 37.47% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
+
 **Works Cited**
 
 Shafi, Rafia, and Samreen Fatima. 2019. "Relationship between GDP, Life Expectancy and Growth Rate of G7 Countries." International Journal of Sciences 8 (6): 74–79.
@@ -55,6 +59,7 @@ library(readr)
 library(av)
 library(gganimate)
 library(broom)
+library(kableExtra)
 ```
 
 #### Loading in data
@@ -265,3 +270,23 @@ glance(gdp_regression) |>
 $$
 \hat{y} = 58.77 + (4.042 * 10^{-4})x
 $$
+
+## Variance and Model Fit
+
+```{r}
+#| code-fold: true
+
+# Calculate variances
+var_response <- var(combined_data$`Life Expectancy`, na.rm = TRUE)
+var_fitted <- var(fitted(gdp_regression), na.rm = TRUE)
+var_residuals <- var(residuals(gdp_regression), na.rm = TRUE)
+
+# Create a dataframe for display
+variance_table <- data.frame(
+  Statistic = c("Variance in Response", "Variance in Fitted Values", "Variance in Residuals"),
+  Value = c(var_response, var_fitted, var_residuals))
+
+variance_table |> 
+  kable(caption = "Variance in Regression Model") |> 
+  kable_styling(full_width = FALSE, bootstrap_options = c("striped", "hover"))
+```
