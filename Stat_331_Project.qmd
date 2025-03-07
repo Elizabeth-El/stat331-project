@@ -203,6 +203,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   facet_wrap(~continent)
 ```
 
+This plot illustrates the relationship between GDP per capita (on a log scale) and life expectancy across different regions. Each point represents a country within a given region. A red linear regression line is fitted to the overall data, showing a positive association as countries with higher GDP per capita tend to have longer life expectancies. This is faceted by region to identify the varying strengths of this relationship across the globe. As we can see, South America has the largest life expectancy growth rate for increasing log gdp. Oceania on the other hand, has the slowest life expectancy growth rate.
 ```{r}
 #| code-fold: true
 ggplot(combined_data, aes(x = log(`GDP per Capita`), y = `Life Expectancy`, color = continent)) +
@@ -210,12 +211,14 @@ ggplot(combined_data, aes(x = log(`GDP per Capita`), y = `Life Expectancy`, colo
   labs(
     title = "Relationship Between GDP and Life Expectancy by Country",
     subtitle = "GDP is in international dollars and fixed at 2017 prices",
-    x = "GDP per Capita",
+    x = "Log GDP per Capita",
     y = "Life Expectancy",
     color = "Continent"
   ) + 
   theme_bw() 
 ```
+
+This plot is similar to the one above, but allows for some more direct comparisons between regions. While this also graphs life expectancy and log gdp per capita for each region, this chart does not display individual country values. With all fitted regression lines on the same plot, we can better identify the range of log gdp values, compare slopes, and evaluate similar trends. While we can still see that South America has the highest life expectancy growth rates based on log gdp, we can also discern that Europe and Africa have similar slopes.
 
 #### GDP and Life Expectancy Over Time Animated Plot
 
@@ -250,6 +253,8 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
 # Animate the plot
 animate(p, nframes = 100, fps = 10)
 ```
+
+This animated plot displays the average gdp per capita and average life expectancy per capita for each region. These values are then plotted over time, capturing the years 1960 to 2022. Since we are evaluating two quantitative variables, average gdp is measured on the y axis, and average life expectancy is measured in point size. Each continental region is then represented by its own color. From this, we can see that in general, both average gdp per capita and average live expectancy increase for all continents. It is important to note that this graph does not utilize log gdp values, which provides better perspective on these changes over time. Europe consistently has the highest average gdp per capita, and has high life expectancy values. It is also clear that Africa makes the most significant life expectancy growth within this time period, however has very small average gdp per capita.  
 
 ## Regression Model
 
