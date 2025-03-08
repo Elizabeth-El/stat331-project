@@ -266,6 +266,8 @@ $$
 Y = {\beta}_0 + {\beta}_{1}x
 $$
 
+This linear regression line we will create will minimize the residuals across the model.
+
 ```{r}
 #| code-fold: true
 gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
