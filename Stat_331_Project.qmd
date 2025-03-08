@@ -281,6 +281,9 @@ glance(gdp_regression) |>
 $$
 \hat{y} = -3.607 + 7.669x
 $$
+##Interpretation of Regression Coefficients
+
+ So, when the log of a country’s GDP is 0 (a GDP per capita of $1) the country is estimated to have a life expectancy of –3.607  years, even though that is unrealistic. Then, each time the log of GDP per capita increases by 1, the life expectancy of that country is predicted to increase by 7.669 years. 
 
 ## Variance and Model Fit
 
