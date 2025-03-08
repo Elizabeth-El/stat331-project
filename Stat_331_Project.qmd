@@ -206,7 +206,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   facet_wrap(~continent)
 ```
 
- The graph illustrates a positive relationship between GDP per capita (logged) and life expectancy across all continents, indicating that wealthier countries tend to have higher life expectancies. However, the strength of this relationship varies by region. For instance, South America and Africa exhibit a strong positive trend, while Oceania reflects a flatter slope. Additionally, the graph suggests diminishing returns, as the impact of increasing GDP on life expectancy appears more pronounced at lower income levels and flattens at higher GDP levels. 
+ The graph illustrates a moderately strong, positive relationship between GDP per capita (logged) and life expectancy across all continents, indicating that wealthier countries tend to have higher life expectancies. However, the strength of this relationship varies by region. For instance, South America and Africa exhibit a larger positive trend, while Oceania reflects a flatter slope. Additionally, the graph suggests diminishing returns, as the impact of increasing GDP on life expectancy appears more pronounced at lower income levels and flattens at higher GDP levels. There are a few outliers visible, with possible outliers having a higher life expectancy than predicted based on their GDP. These outliers are from Africa and Asia, but in general the linear relationship seems to hold for most datapoints.
  
 ##### Plot 2
 *The plot below charts the relationship between log GDP per capita and the life expectancy of each continent. GDP is in the units of international dollars and fixed at 2017 prices.*
