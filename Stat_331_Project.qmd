@@ -244,7 +244,8 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
     subtitle = "Size of bubble represents average life expectancy",
     x = "Year",
     y = "Average GDP per Capita",
-    color = "Continent"
+    color = "Continent" +
+    size = "Average Life Expectancy"
   ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
