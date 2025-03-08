@@ -190,7 +190,7 @@ combined_data <- combined_data |>
 #### GDP vs. Life Expectancy Plots
 ##### Plot 1
 
-*This plot illustrates the relationship between GDP per capita (on a log scale) and life expectancy across different regions. Each point represents a country within a given region. A red linear regression line is fitted to the overall data. This is then faceted by region to identify the varying strengths of this relationship across the globe.*
+*This plot illustrates the relationship between GDP per capita (on a log scale) and life expectancy across different regions. Each point represents a country within a given region for a year. A red linear regression line is fitted to the overall data. This is then faceted by region to identify the varying strengths of this relationship across the globe.*
 ```{r}
 #| code-fold: true
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
@@ -243,7 +243,8 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
     title = "Average GDP per Capita vs Year with Bubble Size as GDP per Capita",
     subtitle = "Size of bubble represents average life expectancy",
     x = "Year",
-    y = "Average GDP per Capita"
+    y = "Average GDP per Capita",
+    color = "Continent"
   ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
