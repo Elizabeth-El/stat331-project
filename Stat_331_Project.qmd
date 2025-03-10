@@ -294,10 +294,7 @@ To determine how much of the variability in Life Expectancy is accounted for by 
 
 ##Simulating Values
 ```{r}
-
-gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
-                     data = combined_data, na.rm = T)
-
+#| layout-ncol: 2
 predict_gdp <- predict(gdp_regression)
 
 estimated_sigma <- sigma(gdp_regression)
@@ -317,6 +314,19 @@ map_int(combined_data, ~sum(is.na(.x)))
 data_with_predict <- combined_data |> 
   bind_cols(sim_response)
 
-ggplot(data = data_with_predict, aes(x = log(`GDP per Capita`), y = sim_gdp)) +
-  geom_point()
+#Graph 1 here
+ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
+  geom_point(aes(color = continent), alpha = 0.7) + 
+  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", subtitle = "GDP is in international dollars and fixed at 2017 prices", x = "Log of GDP per Capita", y = "Life Expectancy", color = "Continent") + 
+  theme_bw() +
+  theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
+
+#Graph 2 here
+ggplot(data_with_predict, aes(x = log10(`GDP per Capita`), y =sim_gdp)) +
+  geom_point(aes(color = continent), alpha = 0.7) + 
+  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+  labs( title = "Relationship Between GDP and Predicted GDP", subtitle = "GDP is in international dollars and fixed at 2017 prices", x = "Log of GDP per Capita", y = "Simulated Life Expectancy", color = "Continent") + 
+  theme_bw() +
+  theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
 ```
