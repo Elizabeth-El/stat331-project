@@ -266,8 +266,6 @@ $$
 Y = {\beta}_0 + {\beta}_{1}x
 $$
 
-This linear regression line we will create will minimize the residuals across the model.
-
 ```{r}
 #| code-fold: true
 gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
@@ -277,6 +275,8 @@ tidy(gdp_regression) |>
 glance(gdp_regression) |> 
   kable(caption = "Linear Regression Fit Information")
 ```
+
+For our linear regression model, we choose to use all the data we had in order to obtain a model that is the best representation of the association between life expectancy and GDP per capita. GDP per capita is still logged, as explained above, in order for the association to be linear and fit well with the model.
 
 $$
 \hat{y} = -3.607 + 7.669x
