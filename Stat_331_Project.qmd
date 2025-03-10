@@ -290,3 +290,33 @@ variance_table |>
 ```
 
 To determine how much of the variability in Life Expectancy is accounted for by the regression model, we can calculate the proportion by dividing the Variance in Fitted Values by the Variance in Response: `r round(var_fitted, 2)` / `r round(var_response, 2)` ≈ `r round((var_fitted / var_response), 2)` This value is validated in the Linear Regression Fit Information table, as this number matches the R squared value. This tells us that `r round((var_fitted / var_response) * 100, 2)`% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining `r round((var_residuals / var_response) * 100, 2)`% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
+
+
+##Simulating Values
+```{r}
+
+gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
+                     data = combined_data, na.rm = T)
+
+predict_gdp <- predict(gdp_regression)
+
+estimated_sigma <- sigma(gdp_regression)
+
+rand_error <- function(x, mean = 0, sd){
+  errors <- rnorm(n=length(x), mean = mean, sd = sd)
+  y <- (x + errors)
+  return(y)
+}
+
+set.seed(1234)
+sim_response <- tibble(sim_gdp = rand_error(predict_gdp,
+                                            sd = est_sigma))
+
+map_int(combined_data, ~sum(is.na(.x)))
+
+data_with_predict <- combined_data |> 
+  bind_cols(sim_response)
+
+ggplot(data = data_with_predict, aes(x = log(`GDP per Capita`), y = sim_gdp)) +
+  geom_point()
+```
