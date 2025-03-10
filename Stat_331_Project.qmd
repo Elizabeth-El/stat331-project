@@ -112,80 +112,54 @@ combined_data <- gdp_long |>
 #| code-fold: true
 # Define country vectors by continent
 # Used ChatGPT to format this (https://chatgpt.com/share/67c0f690-5020-8004-b149-ef2bae1b914e)
-
-# Asia
-asia_countries <- factor(c("Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", 
-                           "Bhutan", "Brunei", "Cambodia", "China", "Georgia", "India", 
+combined_data <- combined_data |> 
+  mutate(
+    continent = factor(case_when(
+      country %in% c("Afghanistan", "Armenia", "Azerbaijan", "Bahrain", "Bangladesh", 
+                           "Bhutan", "Brunei", "Cambodia", "China", "Georgia", "Hong Kong, China", "India", 
                            "Indonesia", "Iran", "Iraq", "Israel", "Japan", "Jordan", 
-                           "Kazakhstan", "Kuwait", "Kyrgyzstan", "Laos", "Lebanon", 
+                           "Kazakhstan", "Kuwait", "Kyrgyz Republic", "Lao", "Lebanon", 
                            "Malaysia", "Maldives", "Mongolia", "Myanmar", "Nepal", 
                            "North Korea", "Oman", "Pakistan", "Palestine", "Philippines", 
                            "Qatar", "Saudi Arabia", "Singapore", "South Korea", "Sri Lanka", 
                            "Syria", "Tajikistan", "Thailand", "Timor-Leste", "Turkey", 
-                           "Turkmenistan", "United Arab Emirates", "Uzbekistan", "Vietnam", "Yemen"))
-
-# Africa
-africa_countries <- factor(c("Angola", "Algeria", "Benin", "Botswana", "Burkina Faso", 
-                             "Burundi", "Cabo Verde", "Cameroon", "Central African Republic", 
-                             "Chad", "Comoros", "Democratic Republic of the Congo", 
+                           "Turkmenistan", "UAE", "Uzbekistan", "Vietnam", "Yemen") ~ "Asia",
+      country %in% c("Angola", "Algeria", "Benin", "Botswana", "Burkina Faso", 
+                             "Burundi", "Cape Verde", "Cameroon", "Central African Republic", 
+                             "Chad", "Comoros", "Congo, Dem. Rep.", "Congo, Rep.", "Cote d'Ivoire",
                              "Djibouti", "Egypt", "Equatorial Guinea", "Eritrea", "Eswatini", 
                              "Ethiopia", "Gabon", "Gambia", "Ghana", "Guinea", "Guinea-Bissau", 
                              "Ivory Coast", "Kenya", "Lesotho", "Liberia", "Libya", 
                              "Madagascar", "Malawi", "Mali", "Mauritania", "Mauritius", 
                              "Morocco", "Mozambique", "Namibia", "Niger", "Nigeria", 
-                             "Republic of the Congo", "Rwanda", "Sao Tome and Principe", 
+                              "Rwanda", "Sao Tome and Principe", 
                              "Senegal", "Seychelles", "Sierra Leone", "Somalia", "South Africa", 
                              "South Sudan", "Sudan", "Tanzania", "Togo", "Tunisia", "Uganda", 
-                             "Zambia", "Zimbabwe"))
-
-# Europe
-europe_countries <- factor(c("Albania", "Andorra", "Austria", "Belarus", "Belgium", 
+                             "Zambia", "Zimbabwe") ~ "Africa",
+      country %in% c("Albania", "Andorra", "Austria", "Belarus", "Belgium", 
                              "Bosnia and Herzegovina", "Bulgaria", "Croatia", "Cyprus", 
                              "Czech Republic", "Denmark", "Estonia", "Finland", "France", 
                              "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", 
                              "Latvia", "Liechtenstein", "Lithuania", "Luxembourg", "Malta", 
                              "Moldova", "Monaco", "Montenegro", "Netherlands", "North Macedonia", 
                              "Norway", "Poland", "Portugal", "Romania", "Russia", "San Marino", 
-                             "Serbia", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", 
-                             "Ukraine", "United Kingdom", "Vatican City"))
-
-# North America
-north_america_countries <- factor(c("Antigua and Barbuda", "Bahamas", "Barbados", "Belize", 
+                             "Serbia", "Slovak Republic", "Slovenia", "Spain", "Sweden", "Switzerland", 
+                             "Ukraine", "UK", "Vatican City") ~ "Europe",
+      country %in% c("Antigua and Barbuda", "Bahamas", "Barbados", "Belize", 
                                      "Canada", "Costa Rica", "Cuba", "Dominica", 
                                      "Dominican Republic", "El Salvador", "Grenada", 
-                                     "Guatemala", "Haiti", "Honduras", "Jamaica", "Mexico", 
-                                     "Nicaragua", "Panama", "Saint Kitts and Nevis", 
-                                     "Saint Lucia", "Saint Vincent and the Grenadines", 
-                                     "Trinidad and Tobago", "United States"))
-
-# South America
-south_america_countries <- factor(c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", 
+                                     "Guatemala", "Haiti", "Honduras", "Jamaica", "Mexico", "Micronesia, Fed. Sts.","Nicaragua", "Panama", "St. Kitts and Nevis", 
+                                     "St. Lucia", "St. Vincent and the Grenadines", 
+                                     "Trinidad and Tobago", "USA") ~ "North America",
+      country %in% c("Argentina", "Bolivia", "Brazil", "Chile", "Colombia", 
                                      "Ecuador", "Guyana", "Paraguay", "Peru", "Suriname", 
-                                     "Uruguay", "Venezuela"))
-
-# Oceania
-oceania_countries <- factor(c("Australia", "Fiji", "Kiribati", "Marshall Islands", 
+                                     "Uruguay", "Venezuela") ~ "South America",
+      country %in% c("Australia", "Fiji", "Kiribati", "Marshall Islands", 
                               "Micronesia", "Nauru", "New Zealand", "Palau", "Papua New Guinea", 
-                              "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu"))
-
-```
-
-#### Add Regions
-
-```{r}
-#| code-fold: true
-combined_data <- combined_data |> 
-  mutate(
-    continent = case_when(
-      country %in% levels(asia_countries) ~ "Asia",
-      country %in% levels(africa_countries) ~ "Africa",
-      country %in% levels(europe_countries) ~ "Europe",
-      country %in% levels(north_america_countries) ~ "North America",
-      country %in% levels(south_america_countries) ~ "South America",
-      country %in% levels(oceania_countries) ~ "Oceania",
+                              "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu") ~ "Oceania",
       TRUE ~ "Other"  # For countries not in any of the continent lists
-    )
-)
+    ), levels = c("Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Other"))
+  )
 ```
 
 #### GDP vs. Life Expectancy Plots
@@ -246,9 +220,9 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
     subtitle = "Size of bubble represents average life expectancy",
     x = "Year",
     y = "Average GDP per Capita",
-    color = "Continent" +
+    color = "Continent",
     size = "Average Life Expectancy"
-  ) +
+) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_color_brewer(palette = "Set2") +  
