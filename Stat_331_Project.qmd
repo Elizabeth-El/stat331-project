@@ -265,7 +265,7 @@ From this, we can see that in general, both average gdp per capita and average l
 ## Regression Model
 
 $$
-Y = {\beta}_0 + {\beta}_{1}x
+Y = {\beta}_0 + {\beta}_{1}log(x)
 $$
 
 ```{r}
