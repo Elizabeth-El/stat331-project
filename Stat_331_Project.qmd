@@ -237,9 +237,6 @@ From this, we can see that in general, both average gdp per capita and average l
 
 ## Regression Model
 
-$$
-Y = {\beta}_0 + {\beta}_{1}log(x)
-$$
 
 ```{r}
 #| code-fold: true
@@ -263,7 +260,7 @@ glance(gdp_regression) |>
 For our linear regression model, we choose to use all the data we had in order to obtain a model that is the best representation of the association between life expectancy and GDP per capita. GDP per capita is still logged, as explained above, in order for the association to be linear and fit well with the model.
 
 $$
-\hat{y} = -3.607 + 7.669x
+\hat{y} = -3.607 + 7.669*log(x)
 $$
 ##Interpretation of Regression Coefficients
 
