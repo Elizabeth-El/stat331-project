@@ -129,7 +129,8 @@ combined_data <- combined_data |>
                               "Samoa", "Solomon Islands", "Tonga", "Tuvalu", "Vanuatu") ~ "Oceania",
       TRUE ~ "Other"  # For countries not in any of the continent lists
     ), levels = c("Asia", "Africa", "Europe", "North America", "South America", "Oceania", "Other"))
-  )
+  ) |> 
+  drop_na()
 ```
 
 ## Write Up
