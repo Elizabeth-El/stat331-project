@@ -325,6 +325,30 @@ ggplot(data_with_predict, aes(x = log10(`GDP per Capita`), y =sim_gdp)) +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
 ```
 
+```{r}
+
+#returns one r^2 value for a simulated version of the data
+get_r2 <- function(regression){
+  predicted <- predict(regression)
+  est_sigma <- sigma(regression)
+  
+  sim_response <- tibble(sim_response = rand_error(predicted,
+                                            sd = est_sigma))
+
+
+data_with_predict2 <- combined_data |> 
+  bind_cols(sim_response) |> 
+  mutate(`Log of GDP per Capita` = log(`GDP per Capita`))
+
+sim_regression <- lm(data_with_predict2$sim_response ~ data_with_predict2$`Log of GDP per Capita`)
+
+r2_data <- glance(sim_regression)
+
+return(r2_data$r.squared)
+  
+}
+```
+
 ##References
 
 Shafi, Rafia, and Samreen Fatima. 2019. "Relationship between GDP, Life Expectancy and Growth Rate of G7 Countries." International Journal of Sciences 8 (6): 74–79.
