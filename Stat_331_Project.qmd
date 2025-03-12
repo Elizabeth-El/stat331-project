@@ -308,7 +308,7 @@ rand_error <- function(x, mean = 0, sd){
 
 set.seed(1234)
 sim_response <- tibble(sim_gdp = rand_error(predict_gdp,
-                                            sd = est_sigma))
+                                            sd = estimated_sigma))
 
 map_int(combined_data, ~sum(is.na(.x)))
 
