@@ -347,6 +347,9 @@ r2_data <- glance(sim_regression)
 return(r2_data$r.squared)
   
 }
+
+#Taking 1000 sample
+r2s <- map_dbl(.x= 1:1000, .f = ~get_r2(gdp_regression))
 ```
 
 ##References
