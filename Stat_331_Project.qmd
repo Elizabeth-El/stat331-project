@@ -348,8 +348,17 @@ return(r2_data$r.squared)
   
 }
 
-#Taking 1000 sample
+#Taking 1000 samples
 r2s <- map_dbl(.x= 1:1000, .f = ~get_r2(gdp_regression))
+
+#graphing the samples
+
+tibble(r2s) |> 
+ggplot(aes(x = r2s)) +
+  geom_histogram(aes(y = ..density..)) +
+  stat_function(fun = ~dnorm(.x, mean = mean(r2s), sd = sd(r2s)),
+                col = "darkorchid", lwd = 2) + 
+  labs(x = "R squared values", y = "Density", title = "Sample Distribution of R Square Values", subtitle = "For predicted vs actual log of GDP per Capita")
 ```
 
 ##References
