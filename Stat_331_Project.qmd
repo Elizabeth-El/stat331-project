@@ -9,6 +9,7 @@ format:
     embed-resources: true
     html-table-processing: none
 bibliography: references.bib
+nocite: '@*'
 title-block-banner: true
 theme: Pulse
 editor: source
@@ -138,7 +139,7 @@ combined_data <- combined_data |>
 
 ###### **Our Ambitions**
 
-This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (@GapminderGDP) (@GapminderLifeExpectancy). By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?
+This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (@GapminderGDP). By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?
 
 ###### **Exploring Previous Findings**
 
@@ -162,7 +163,9 @@ The most important phase of data cleaning was removing unwanted observations. Af
 
 ```{r}
 #| code-fold: true
+#| label: Creating continent scatterplots
 #| layout-ncol: 2 # resource: https://github.com/quarto-dev/quarto-cli/discussions/3423
+
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
@@ -202,7 +205,8 @@ This plot is similar to the one above, but allows for some more direct compariso
 
 ```{r}
 #| code-fold: true
-# calculate averages for each region for visual comparison
+#| label: Calculate averages for each region for visual comparison
+
 combined_data_avg <- combined_data |> 
   group_by(Year, continent) |> 
   summarise(
@@ -243,13 +247,19 @@ To analyze the relationship between Life Expectancy and GDP per capita, we used 
 
 ```{r}
 #| code-fold: true
+#| label: Regression model
+
 gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
                      data = combined_data)
 
 #The data model we used for the equation
-ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
-  geom_point(aes(color = continent), alpha = 0.7) + 
-  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+ggplot(combined_data, aes(x = log10(`GDP per Capita`), 
+                          y =`Life Expectancy`)) +
+  geom_point(aes(color = continent), 
+             alpha = 0.7) + 
+  geom_smooth(method = "lm", 
+              color = "red", 
+              se = FALSE) + 
   labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
         subtitle = "GDP is in international dollars and fixed at 2017 prices", 
         x = "Log of GDP per Capita", 
@@ -257,7 +267,8 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
         color = "Continent",
         caption = "Figure 4") + 
   theme_bw() +
-  theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
+  theme(strip.background = element_blank(), 
+        axis.text.x = element_text(size = 10))
 
 tidy(gdp_regression) |> 
   kable(caption = "Linear Regression Equation Information")
@@ -271,7 +282,7 @@ $$
 \hat{y} = -3.607 + 7.669*log(x)
 $$
 
-##Interpretation of Regression Coefficients
+## Interpretation of Regression Coefficients
 
 When the log of a country’s GDP is 0 (a GDP per capita of \$1) the country is estimated to have a life expectancy of –3.607 years, even though that is unrealistic. Then, each time the log of GDP per capita increases by 1, the life expectancy of that country is predicted to increase by 7.669 years.
 
@@ -281,6 +292,7 @@ When the log of a country’s GDP is 0 (a GDP per capita of \$1) the country is 
 
 ```{r}
 #| code-fold: true
+#| label: Variance Table
 
 # Calculate variances
 var_response <- var(combined_data$`Life Expectancy`, na.rm = TRUE)
@@ -299,10 +311,12 @@ variance_table |>
 
 To determine how much of the variability in Life Expectancy is accounted for by the regression model, we can calculate the proportion by dividing the Variance in Fitted Values by the Variance in Response: `r round(var_fitted, 2)` / `r round(var_response, 2)` ≈ `r round((var_fitted / var_response), 2)` This value is validated in the Linear Regression Fit Information table, as this number matches the R squared value. This tells us that `r round((var_fitted / var_response) * 100, 2)`% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining `r round((var_residuals / var_response) * 100, 2)`% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
 
-##Simulating Values ***introduce plots***
+## Simulating Values ***introduce plots***
 
 ```{r}
-#| layout-ncol: 2
+#| code-fold: true
+#| label: Simulation
+
 predict_gdp <- predict(gdp_regression)
 
 estimated_sigma <- sigma(gdp_regression)
@@ -321,34 +335,53 @@ map_int(combined_data, ~sum(is.na(.x)))
 
 data_with_predict <- combined_data |> 
   bind_cols(sim_response)
+```
+
+```{r}
+#| code-fold: true
+#| layout-ncol: 2
+#| label: Graphing the simulation
 
 #Graph 1 here
-ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
-  geom_point(aes(color = continent), alpha = 0.7) + 
-  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+ggplot(combined_data, aes(x = log10(`GDP per Capita`), 
+                          y =`Life Expectancy`)) +
+  geom_point(aes(color = continent), 
+             alpha = 0.7) + 
+  geom_smooth(method = "lm", 
+              color = "red", 
+              se = FALSE) + 
   labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
         subtitle = "GDP is in international dollars and fixed at 2017 prices", 
         x = "Log of GDP per Capita", 
         y = "Life Expectancy", color = "Continent",
         caption = "Figure 5") + 
   theme_bw() +
-  theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
+  theme(strip.background = element_blank(), 
+        axis.text.x = element_text(size = 10))
 
 #Graph 2 here
-ggplot(data_with_predict, aes(x = log10(`GDP per Capita`), y =sim_gdp)) +
-  geom_point(aes(color = continent), alpha = 0.7) + 
-  geom_smooth(method = "lm", color = "red", se = FALSE) + 
+ggplot(data_with_predict, 
+       aes(x = log10(`GDP per Capita`), 
+           y =sim_gdp)) +
+  geom_point(aes(color = continent), 
+             alpha = 0.7) + 
+  geom_smooth(method = "lm", 
+              color = "red", 
+              se = FALSE) + 
   labs( title = "Relationship Between GDP and Predicted GDP",
         subtitle = "GDP is in international dollars and fixed at 2017 prices", 
         x = "Log of GDP per Capita", 
-        y = "Simulated Life Expectancy", 
+        y = "Simulated GDP", 
         color = "Continent",
         caption = "Figure 6") + 
   theme_bw() +
-  theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
+  theme(strip.background = element_blank(), 
+        axis.text.x = element_text(size = 10))
 ```
 
 ```{r}
+#| code-fold: true
+#| label: Sample R2
 
 #returns one r^2 value for a simulated version of the data
 get_r2 <- function(regression){
@@ -372,15 +405,18 @@ return(r2_data$r.squared)
 }
 
 #Taking 1000 samples
-r2s <- map_dbl(.x= 1:1000, .f = ~get_r2(gdp_regression))
+r2s <- map_dbl(.x= 1:1000, 
+               .f = ~get_r2(gdp_regression))
 
 #graphing the samples
 
 tibble(r2s) |> 
 ggplot(aes(x = r2s)) +
   geom_histogram(aes(y = ..density..)) +
-  stat_function(fun = ~dnorm(.x, mean = mean(r2s), sd = sd(r2s)),
-                col = "darkorchid", lwd = 2) + 
+  stat_function(fun = ~dnorm(.x, mean = mean(r2s), 
+                             sd = sd(r2s)),
+                col = "darkorchid", 
+                lwd = 2) + 
   labs(x = "R squared values", 
        y = "Density", 
        title = "Sample Distribution of R Square Values", 
@@ -392,7 +428,13 @@ ggplot(aes(x = r2s)) +
 
 ## Conclusion
 
-***add conclusion***
+This analysis aimed to determine the existence of a relationship between GDP per capita and life expectancy. We belived there would be a positive correlation between them meaning that as countries saw their economy grow, they would see a positive change in health outcomes such as life expectancy. Our findings concurred with this and showed a strong relationship between GDP growth an life expectancy. As GDP per Capita increases by one percent in a country, its life expectancy increased by 7.669 years.
+
+We tested the strength of our model by using it to predict life expectancies based on simulated GDP data. The simulation yeilded normal residulas when compared to the actual life expectancy data. This suggsts the model is an accurate representation of the trends in the data.
+
+Our findings concurr with existing research and support the general conclusion that an increase in per person wealth increases lifespan. An important thing tp note is that our model used a log transformation on GDP meaning that smaller economies will derive more benefit from the same increase in GDP per capita than larger economies.
+
+There are limitations in our model given its simplicity. It is possible that there is reverse causation, when people have greater life expectancy they are productive members of society for longer. Additionally, there are likley missing variables, such as investment or geopolitical stability, that could help explain more of the variance in the data. These provide opportunities for further reasearch and looking for more ways to increase life expectancy.
 
 ## References
 
