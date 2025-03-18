@@ -54,7 +54,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+
+div.csl-bib-body { }
+div.csl-entry {
+clear: both;
+margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+margin-left:2em;
+text-indent:-2em;
+}
+div.csl-left-margin {
+min-width:2em;
+float:left;
+}
+div.csl-right-inline {
+margin-left:2em;
+padding-left:1em;
+}
+div.csl-indent {
+margin-left: 2em;
+}</style>
 
 
 <script>/*!
@@ -3606,11 +3626,11 @@ window.Quarto = {
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
 <section id="our-ambitions" class="level6">
 <h6 class="anchored" data-anchor-id="our-ambitions"><strong>Our Ambitions</strong></h6>
-<p>This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people. By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?</p>
+<p>This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (<span class="citation" data-cites="GapminderGDP">Gapminder (<a href="#ref-GapminderGDP" role="doc-biblioref">2025b</a>)</span>) (<span class="citation" data-cites="GapminderLifeExpectancy">Gapminder (<a href="#ref-GapminderLifeExpectancy" role="doc-biblioref">2025a</a>)</span>). By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?</p>
 </section>
 <section id="exploring-previous-findings" class="level6">
 <h6 class="anchored" data-anchor-id="exploring-previous-findings"><strong>Exploring Previous Findings</strong></h6>
-<p>Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional $10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (Shafi). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy. Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off. This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.</p>
+<p>Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional $10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (<span class="citation" data-cites="Shafi2019">Shafi and Fatima (<a href="#ref-Shafi2019" role="doc-biblioref">2019</a>)</span>). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy (<span class="citation" data-cites="Shah2023">Shah, Akram, and Alvi (<a href="#ref-Shah2023" role="doc-biblioref">2023</a>)</span>). Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off ((<span class="citation" data-cites="GeorgiaTech2023">Georgia Tech (<a href="#ref-GeorgiaTech2023" role="doc-biblioref">2023</a>)</span>). This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.</p>
 </section>
 <section id="about-the-data" class="level6">
 <h6 class="anchored" data-anchor-id="about-the-data"><strong>About the Data</strong></h6>
@@ -4009,9 +4029,23 @@ window.Quarto = {
 </section>
 <section id="references" class="level2">
 <h2 class="anchored" data-anchor-id="references">References</h2>
-<p>Shafi, Rafia, and Samreen Fatima. 2019. “Relationship between GDP, Life Expectancy and Growth Rate of G7 Countries.” International Journal of Sciences 8 (6): 74–79.</p>
-<p>Shah, Syed R., Mohammad N. Akram, and S. Alvi. 2023. “A New Perspective of Economic Development and Human Development in the Context of Aging.” International Journal of Health Sciences and Research 13 (2): 145–152. https://pmc.ncbi.nlm.nih.gov/articles/PMC11171643/#:~:text=According%20to%20our%20model%2C%20a,by%200.088%20years%20on%20average.</p>
-<p>Georgia Tech. 2023. “Effects of Urbanization on Sustainability in Major Cities.” Georgia Institute of Technology. Accessed February 27, 2025. https://repository.gatech.edu/server/api/core/bitstreams/59ce2b2a-1620-4343-997f-76a0e81d539c/content.</p>
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-GapminderLifeExpectancy" class="csl-entry" role="listitem">
+Gapminder. 2025a. <span>“Life Expectancy Data.”</span> <a href="http://gapm.io/dlex">http://gapm.io/dlex</a>.
+</div>
+<div id="ref-GapminderGDP" class="csl-entry" role="listitem">
+———. 2025b. <a href="http://gapm.io/dgdppcap_cppp">http://gapm.io/dgdppcap_cppp</a>.
+</div>
+<div id="ref-GeorgiaTech2023" class="csl-entry" role="listitem">
+Georgia Tech. 2023. <span>“Effects of Urbanization on Sustainability in Major Cities.”</span> Georgia Institute of Technology. <a href="https://repository.gatech.edu/server/api/core/bitstreams/59ce2b2a-1620-4343-997f-76a0e81d539c/content">https://repository.gatech.edu/server/api/core/bitstreams/59ce2b2a-1620-4343-997f-76a0e81d539c/content</a>.
+</div>
+<div id="ref-Shafi2019" class="csl-entry" role="listitem">
+Shafi, Rafia, and Samreen Fatima. 2019. <span>“Relationship Between GDP, Life Expectancy and Growth Rate of G7 Countries.”</span> <em>International Journal of Sciences</em> 8 (6): 74–79.
+</div>
+<div id="ref-Shah2023" class="csl-entry" role="listitem">
+Shah, Syed R., Mohammad N. Akram, and S. Alvi. 2023. <span>“A New Perspective of Economic Development and Human Development in the Context of Aging.”</span> <em>International Journal of Health Sciences and Research</em> 13 (2): 145–52. <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11171643/#:~:text=According%20to%20our%20model%2C%20a,by%200.088%20years%20on%20average.">https://pmc.ncbi.nlm.nih.gov/articles/PMC11171643/#:~:text=According%20to%20our%20model%2C%20a,by%200.088%20years%20on%20average.</a>
+</div>
+</div>
 <!-- -->
 
 </section>
@@ -4626,11 +4660,11 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb16-150"><a href="#cb16-150" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-151"><a href="#cb16-151" aria-hidden="true" tabindex="-1"></a><span class="fu">###### **Our Ambitions**</span></span>
 <span id="cb16-152"><a href="#cb16-152" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a>This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people. By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?</span>
+<span id="cb16-153"><a href="#cb16-153" aria-hidden="true" tabindex="-1"></a>This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (@GapminderGDP) (@GapminderLifeExpectancy). By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?</span>
 <span id="cb16-154"><a href="#cb16-154" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-155"><a href="#cb16-155" aria-hidden="true" tabindex="-1"></a><span class="fu">###### **Exploring Previous Findings**</span></span>
 <span id="cb16-156"><a href="#cb16-156" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a>Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (Shafi). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy. Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off. This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.</span>
+<span id="cb16-157"><a href="#cb16-157" aria-hidden="true" tabindex="-1"></a>Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (@Shafi2019). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy (@Shah2023). Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off ((@GeorgiaTech2023). This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.</span>
 <span id="cb16-158"><a href="#cb16-158" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-159"><a href="#cb16-159" aria-hidden="true" tabindex="-1"></a><span class="fu">###### **About the Data**</span></span>
 <span id="cb16-160"><a href="#cb16-160" aria-hidden="true" tabindex="-1"></a></span>
@@ -4883,11 +4917,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb16-419"><a href="#cb16-419" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-420"><a href="#cb16-420" aria-hidden="true" tabindex="-1"></a><span class="fu">## References</span></span>
 <span id="cb16-421"><a href="#cb16-421" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-422"><a href="#cb16-422" aria-hidden="true" tabindex="-1"></a>Shafi, Rafia, and Samreen Fatima. 2019. &quot;Relationship between GDP, Life Expectancy and Growth Rate of G7 Countries.&quot; International Journal of Sciences 8 (6): 74–79.</span>
-<span id="cb16-423"><a href="#cb16-423" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-424"><a href="#cb16-424" aria-hidden="true" tabindex="-1"></a>Shah, Syed R., Mohammad N. Akram, and S. Alvi. 2023. &quot;A New Perspective of Economic Development and Human Development in the Context of Aging.&quot; International Journal of Health Sciences and Research 13 (2): 145–152. https://pmc.ncbi.nlm.nih.gov/articles/PMC11171643/#:\~:text=According%20to%20our%20model%2C%20a,by%200.088%20years%20on%20average.</span>
-<span id="cb16-425"><a href="#cb16-425" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-426"><a href="#cb16-426" aria-hidden="true" tabindex="-1"></a>Georgia Tech. 2023. &quot;Effects of Urbanization on Sustainability in Major Cities.&quot; Georgia Institute of Technology. Accessed February 27, 2025. https://repository.gatech.edu/server/api/core/bitstreams/59ce2b2a-1620-4343-997f-76a0e81d539c/content.</span>
+<span id="cb16-422"><a href="#cb16-422" aria-hidden="true" tabindex="-1"></a>::: {#refs}</span>
+<span id="cb16-423"><a href="#cb16-423" aria-hidden="true" tabindex="-1"></a>:::</span>
 </code><button title="Copy to Clipboard" class="code-copy-button" data-in-quarto-modal><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

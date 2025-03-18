@@ -138,11 +138,11 @@ combined_data <- combined_data |>
 
 ###### **Our Ambitions**
 
-This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people. By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?
+This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (@GapminderGDP) (@GapminderLifeExpectancy). By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?
 
 ###### **Exploring Previous Findings**
 
-Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (Shafi). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy. Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off. This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.
+Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (@Shafi2019). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy (@Shah2023). Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off ((@GeorgiaTech2023). This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.
 
 ###### **About the Data**
 
@@ -396,8 +396,5 @@ ggplot(aes(x = r2s)) +
 
 ## References
 
-Shafi, Rafia, and Samreen Fatima. 2019. "Relationship between GDP, Life Expectancy and Growth Rate of G7 Countries." International Journal of Sciences 8 (6): 74–79.
-
-Shah, Syed R., Mohammad N. Akram, and S. Alvi. 2023. "A New Perspective of Economic Development and Human Development in the Context of Aging." International Journal of Health Sciences and Research 13 (2): 145–152. https://pmc.ncbi.nlm.nih.gov/articles/PMC11171643/#:\~:text=According%20to%20our%20model%2C%20a,by%200.088%20years%20on%20average.
-
-Georgia Tech. 2023. "Effects of Urbanization on Sustainability in Major Cities." Georgia Institute of Technology. Accessed February 27, 2025. https://repository.gatech.edu/server/api/core/bitstreams/59ce2b2a-1620-4343-997f-76a0e81d539c/content.
+::: {#refs}
+:::
