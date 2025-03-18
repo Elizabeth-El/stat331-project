@@ -75,7 +75,6 @@ combined_data <- gdp_long |>
   inner_join(life_expectancy_long, join_by(country, Year))
 ```
 
-
 ```{r}
 #| code-fold: true
 #| label: Define Regions
@@ -134,6 +133,7 @@ combined_data <- combined_data |>
 ```
 
 ## Introduction
+
 ###### **Our Ambitions**
 
 This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people. By understanding these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?
@@ -144,10 +144,9 @@ Many studies have examined the relationship between GDP and a country’s life e
 
 ###### **About the Data**
 
-The GDP  data set contains data on the gross domestic product per person adjusted for differences in purchasing power, in international dollars and fixed at 2017 prices. The “international dollars” currency is adjusted for Purchasing Power Parity (PPP) and is a virtual currency that enables better comparisons that allow us to compare what a dollar would buy in each country (a comparable amount of goods and services) as a U.S. dollar would buy in the United States. Additionally, GDP per capita is the gross domestic product divided by the population of the country, which gives us a rough estimate of the average annual income of the citizens. The GDP data set contains a “country” variable which has the names of each country, and the GDP per capita for each of the countries in the data set from the year 1800 to 2022.
+The GDP data set contains data on the gross domestic product per person adjusted for differences in purchasing power, in international dollars and fixed at 2017 prices. The “international dollars” currency is adjusted for Purchasing Power Parity (PPP) and is a virtual currency that enables better comparisons that allow us to compare what a dollar would buy in each country (a comparable amount of goods and services) as a U.S. dollar would buy in the United States. Additionally, GDP per capita is the gross domestic product divided by the population of the country, which gives us a rough estimate of the average annual income of the citizens. The GDP data set contains a “country” variable which has the names of each country, and the GDP per capita for each of the countries in the data set from the year 1800 to 2022.
 
 The Life Expectancy data set contains data on life expectancy at birth in total number of years. Life expectancy at birth can be defined as the number of years a newborn infant would live if prevailing patterns of mortality at the time of its birth were to stay the same throughout its life. This data set also contains a “country” variable and the life expectancy at birth value for each country in the data set for every year from 1960 to 2022.
-
 
 ###### **Cleaning Decisions**
 
@@ -157,7 +156,7 @@ The most important phase of data cleaning was removing unwanted observations. Af
 
 #### Regression Visualizations
 
-*The plots below illustrate the relationship between GDP per capita (on a log scale) and life expectancy across different continents. Plot 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Plot 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in internation dollars fixed at 2017 prices.*
+*The plots below illustrate the relationship between GDP per capita (on a log scale) and life expectancy across different continents. Plot 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Plot 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.*
 
 ```{r}
 #| code-fold: true
@@ -165,7 +164,11 @@ The most important phase of data cleaning was removing unwanted observations. Af
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
-  labs( title = "Plot 1: GDP and Life Expectancy Regression Faceted by Continent", subtitle = "GDP is in international dollars and fixed at 2017 prices", x = "Log of GDP per Capita", y = "Life Expectancy", color = "Continent") + 
+  labs( title = "Plot 1: GDP and Life Expectancy Regression Faceted by Continent", 
+        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+        x = "Log of GDP per Capita", 
+        y = "Life Expectancy", color = "Continent",
+        caption = "Figure 1") + 
   theme_bw() +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10)) + 
   facet_wrap(~continent)
@@ -177,17 +180,19 @@ ggplot(combined_data, aes(x = log(`GDP per Capita`), y = `Life Expectancy`, colo
     subtitle = "Estimated Regression Lines by Continent",
     x = "Log GDP per Capita",
     y = "Life Expectancy",
-    color = "Continent"
+    color = "Continent",
+    caption = "Figure 2"
   ) + 
   theme_bw() 
 ```
 
 ##### Plot 1
-The graph illustrates a moderately strong, positive relationship between GDP per capita (logged) and life expectancy across all continents, indicating that wealthier countries tend to have higher life expectancies. However, the strength of this relationship varies by region. For instance, South America and Africa exhibit a larger positive trend, while Oceania reflects a flatter slope. Additionally, the graph suggests diminishing returns, as the impact of increasing GDP on life expectancy appears more pronounced at lower income levels and flattens at higher GDP levels. There are a few outliers visible, with possible outliers having a higher life expectancy than predicted based on their GDP. These outliers are from Africa and Asia, but in general the linear relationship seems to hold for most datapoints.
+
+The graph illustrates a moderately strong, positive relationship between GDP per capita (logged) and life expectancy across all continents, indicating that wealthier countries tend to have higher life expediencies. However, the strength of this relationship varies by region. For instance, South America and Africa exhibit a larger positive trend, while Oceania reflects a flatter slope. Additionally, the graph suggests diminishing returns, as the impact of increasing GDP on life expectancy appears more pronounced at lower income levels and flattens at higher GDP levels. There are a few outliers visible, with possible outliers having a higher life expectancy than predicted based on their GDP. These outliers are from Africa and Asia, but in general the linear relationship seems to hold for most data points.
 
 ##### Plot 2
 
-This plot is similar to the one above, but allows for some more direct comparisons between regions. While this also graphs life expectancy and log gdp per capita for each region, this chart does not display individual country values. With all fitted regression lines on the same plot, we can better identify the range of log gdp values, compare slopes, and evaluate similar trends. While we can still see that South America has the highest life expectancy growth rates based on log gdp, we can also discern that Europe and Africa have similar slopes.
+This plot is similar to the one above, but allows for some more direct comparisons between regions. While this also graphs life expectancy and log GDP per capita for each region, this chart does not display individual country values. With all fitted regression lines on the same plot, we can better identify the range of log GDP values, compare slopes, and evaluate similar trends. While we can still see that South America has the highest life expectancy growth rates based on log GDP, we can also discern that Europe and Africa have similar slopes.
 
 #### Analysis Over Time
 
@@ -214,7 +219,8 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
     x = "Year",
     y = "Average GDP per Capita",
     color = "Continent",
-    size = "Average Life Expectancy"
+    size = "Average Life Expectancy",
+    caption = "Figure 3"
 ) +
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
@@ -227,10 +233,11 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
 animate(p, nframes = 100, fps = 10)
 ```
 
-From this, we can see that in general, both average gdp per capita and average live expectancy increase for all continents over time. It is important to note that this graph does not utilize log gdp values, which provides better perspective on these changes over time. Europe consistently has the highest average gdp per capita, and has high life expectancy values. It is also clear that Africa makes the most significant life expectancy growth within this time period, however has very small average gdp per capita. Further, Europe reflects the largest increase in average GDP per capita over time, in addition increasing their average life expectancy. 
+From this, we can see that in general, both average gdp per capita and average live expectancy increase for all continents over time. It is important to note that this graph does not utilize log gdp values, which provides better perspective on these changes over time. Europe consistently has the highest average gdp per capita, and has high life expectancy values. It is also clear that Africa makes the most significant life expectancy growth within this time period, however has very small average GDP per capita. Further, Europe reflects the largest increase in average GDP per capita over time, in addition increasing their average life expectancy.
 
 ## Regression Model
-***introduce plot and regression model: worth 7 points!***
+
+To analyze the relationship between Life Expectancy and GDP per capita, we used a linear regression model. We regressed Life Expectancy onto a log transformation of GDP per capita to model causality. The log transformation was necessary to accommodate an unusual distribution in the GDP per capita data and make it more normal. Figure 4 shows the relationship between the transformed GDP and Life Expectancy as well as the resulting Ordinary Least Squares (OLS) model. The interpretation of the model coefficients are the life expectancy when GDP per capita is 0 ($\beta_{0}$) and the increase in Life Expectancy for every 1% increase in GDP per capita ($\beta_{1}$).
 
 ```{r}
 #| code-fold: true
@@ -241,7 +248,12 @@ gdp_regression <- lm(`Life Expectancy` ~ log(`GDP per Capita`),
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
-  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", subtitle = "GDP is in international dollars and fixed at 2017 prices", x = "Log of GDP per Capita", y = "Life Expectancy", color = "Continent") + 
+  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
+        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+        x = "Log of GDP per Capita", 
+        y = "Life Expectancy", 
+        color = "Continent",
+        caption = "Figure 4") + 
   theme_bw() +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
 
@@ -262,6 +274,7 @@ $$
 When the log of a country’s GDP is 0 (a GDP per capita of \$1) the country is estimated to have a life expectancy of –3.607 years, even though that is unrealistic. Then, each time the log of GDP per capita increases by 1, the life expectancy of that country is predicted to increase by 7.669 years.
 
 ## Variance and Model Fit
+
 ***introduce model***
 
 ```{r}
@@ -284,8 +297,7 @@ variance_table |>
 
 To determine how much of the variability in Life Expectancy is accounted for by the regression model, we can calculate the proportion by dividing the Variance in Fitted Values by the Variance in Response: `r round(var_fitted, 2)` / `r round(var_response, 2)` ≈ `r round((var_fitted / var_response), 2)` This value is validated in the Linear Regression Fit Information table, as this number matches the R squared value. This tells us that `r round((var_fitted / var_response) * 100, 2)`% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining `r round((var_residuals / var_response) * 100, 2)`% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
 
-##Simulating Values
-***introduce plots***
+##Simulating Values ***introduce plots***
 
 ```{r}
 #| layout-ncol: 2
@@ -312,7 +324,11 @@ data_with_predict <- combined_data |>
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
-  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", subtitle = "GDP is in international dollars and fixed at 2017 prices", x = "Log of GDP per Capita", y = "Life Expectancy", color = "Continent") + 
+  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
+        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+        x = "Log of GDP per Capita", 
+        y = "Life Expectancy", color = "Continent",
+        caption = "Figure 5") + 
   theme_bw() +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
 
@@ -320,7 +336,12 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
 ggplot(data_with_predict, aes(x = log10(`GDP per Capita`), y =sim_gdp)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
-  labs( title = "Relationship Between GDP and Predicted GDP", subtitle = "GDP is in international dollars and fixed at 2017 prices", x = "Log of GDP per Capita", y = "Simulated Life Expectancy", color = "Continent") + 
+  labs( title = "Relationship Between GDP and Predicted GDP",
+        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+        x = "Log of GDP per Capita", 
+        y = "Simulated Life Expectancy", 
+        color = "Continent",
+        caption = "Figure 6") + 
   theme_bw() +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10))
 ```
@@ -358,11 +379,17 @@ ggplot(aes(x = r2s)) +
   geom_histogram(aes(y = ..density..)) +
   stat_function(fun = ~dnorm(.x, mean = mean(r2s), sd = sd(r2s)),
                 col = "darkorchid", lwd = 2) + 
-  labs(x = "R squared values", y = "Density", title = "Sample Distribution of R Square Values", subtitle = "For predicted vs actual log of GDP per Capita")
+  labs(x = "R squared values", 
+       y = "Density", 
+       title = "Sample Distribution of R Square Values", 
+       subtitle = "For predicted vs actual log of GDP per Capita",
+       caption = "Figure 7")
 ```
+
 ***discuss results***
 
-## Conclusion 
+## Conclusion
+
 ***add conclusion***
 
 ## References
