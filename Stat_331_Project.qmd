@@ -8,6 +8,7 @@ format:
     toc: true
     embed-resources: true
     html-table-processing: none
+bibliography: references.bib
 title-block-banner: true
 theme: Pulse
 editor: source
@@ -30,6 +31,7 @@ library(av)
 library(gganimate)
 library(broom)
 library(kableExtra)
+library(bibtex)
 ```
 
 ```{r}
