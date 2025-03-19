@@ -313,7 +313,9 @@ variance_table |>
 
 The amount of variability in Life Expectancy accounted for by the regression model can be calculated as the proportion of Variance in Fitted Values over the Variance in Response: `r round(var_fitted, 2)` / `r round(var_response, 2)` ≈ `r round((var_fitted / var_response), 2)` This value is validated in the Linear Regression Fit Information table, as this number matches the R squared value. This tells us that `r round((var_fitted / var_response) * 100, 2)`% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining `r round((var_residuals / var_response) * 100, 2)`% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
 
-## Simulating Values ***introduce plots***
+## Simulating Values 
+
+The following plots extend our analysis by incorporating simulated values for the GDP variable, which allows us to better understand the variability and predictive relationships in our dataset. Plot 1 revisits the relationship between GDP per capita (on a log scale) and life expectancy, whereas Plot 2 compares actual GDP per capita with simulated GDP values, which are generated based on our regression model, including random error. This helps assess the model's predictive accuracy and the distribution of GDP estimates.
 
 ```{r}
 #| code-fold: true
@@ -381,7 +383,8 @@ ggplot(data_with_predict,
         axis.text.x = element_text(size = 10))
 ```
 
-## ***what do these plots tell us***
+##### **Comparing Plot 1 and Plot 2**
+Plot 1 is included here once again to show a side-by-side comparison between the real data and simulated (expected) values. Plot 1 revisits the relationship between GDP per capita (on a log scale) and life expectancy, reinforcing the overall positive correlation and highlighting how this trend varies across continents. Plot 2 examines how well our regression model predicts GDP using simulated values. The x-axis still represents log-transformed GDP per capita, but instead of life expectancy, the y-axis now plots a simulated version of GDP, incorporating random error to reflect real-world variability. The presence of a strong positive correlation (as indicated by the red regression line) suggests that the model effectively captures the general trend of GDP, though some dispersion remains due to the introduced random variation. The distribution of points across continents is similar to Plot 1, reaffirming that economic patterns are broadly consistent across different regions.
 
 ##### **Understanding R Squared Variability**
 
