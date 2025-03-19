@@ -178,7 +178,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10)) + 
   facet_wrap(~continent)
 
-ggplot(combined_data, aes(x = log(`GDP per Capita`), y = `Life Expectancy`, color = continent)) +
+ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`, color = continent)) +
   geom_smooth(method = "lm", aes(group = continent), se = FALSE) +  
   labs(
     title = "GDP and Life Expectancy Regression by Continent",
