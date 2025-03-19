@@ -139,7 +139,7 @@ combined_data <- combined_data |>
 
 ##### **Our Ambitions**
 
-This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (@GapminderGDP). By evaluating these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: How does this relationship vary by continent? How has this relationship manifested over time? Is there a point where economic growth stops contributing to improved life expectancy, or does it continue to have a significant impact?
+This analysis explores the relationship between GDP per capita and life expectancy to uncover the story of how a country’s wealth can shape the well-being and future of its people (@GapminderGDP). By evaluating these variables, we can better understand how economic growth can lead to healthier, longer lives. We aim to answer several key questions: Does an increase in GDP per capita lead to higher life expectancy? How does this relationship vary by continent? How has this relationship manifested over time? 
 
 ##### **Exploring Previous Findings**
 
