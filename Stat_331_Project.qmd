@@ -159,7 +159,7 @@ The most important phase of data cleaning was removing unwanted observations. Af
 
 ##### **Regression Visualizations**
 
-The plots below illustrate the relationship between GDP per capita (on a log scale) and life expectancy across different continents. Plot 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Plot 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
+The plots below illustrate the relationship between GDP per capita (on a log scale) and life expectancy across different continents. Figure 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
 
 ```{r}
 #| code-fold: true
@@ -169,10 +169,10 @@ The plots below illustrate the relationship between GDP per capita (on a log sca
 ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
-  labs( title = "Plot 1: GDP and Life Expectancy Regression Faceted by Continent", 
-        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+  labs( title = "GDP and Life Expectancy Regression Faceted by Continent", 
+        subtitle = "Life Expectancy", 
         x = "Log of GDP per Capita", 
-        y = "Life Expectancy", color = "Continent",
+        y = " ", color = "Continent",
         caption = "Figure 1") + 
   theme_bw() +
   theme(strip.background = element_blank(), axis.text.x = element_text(size = 10)) + 
@@ -181,21 +181,21 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
 ggplot(combined_data, aes(x = log(`GDP per Capita`), y = `Life Expectancy`, color = continent)) +
   geom_smooth(method = "lm", aes(group = continent), se = FALSE) +  
   labs(
-    title = "Plot 2: GDP and Life Expectancy Regression by Continent",
-    subtitle = "Estimated Regression Lines by Continent",
+    title = "GDP and Life Expectancy Regression by Continent",
+    subtitle = "Estimated Regression Lines of Life Expectancy by Continent",
     x = "Log GDP per Capita",
-    y = "Life Expectancy",
+    y = " ",
     color = "Continent",
     caption = "Figure 2"
   ) + 
   theme_bw() 
 ```
 
-##### **Plot 1**
+##### **Figure 1**
 
 The graph illustrates a moderately strong, positive relationship between GDP per capita (logged) and life expectancy across all continents, indicating that wealthier countries tend to have higher life expectiencies. However, the strength of this relationship varies by region. For instance, South America and Africa exhibit a larger positive trend, while Oceania reflects a flatter slope.  
 
-##### **Plot 2**
+##### **Figure 2**
 
 This plot is similar to the one above, but allows for some more direct comparisons between regions. While this also graphs life expectancy and log GDP per capita for each region, this chart does not display individual country values. With all fitted regression lines on the same plot, we can better identify the range of log GDP values, compare slopes, and evaluate similar trends. While we can still see that South America has the highest life expectancy growth rates based on log GDP, we can also discern that Europe and Africa have similar slopes.
 
@@ -261,9 +261,9 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`),
               color = "red", 
               se = FALSE) + 
   labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
-        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+        subtitle = "Life Expectancy", 
         x = "Log of GDP per Capita", 
-        y = "Life Expectancy", 
+        y = " ", 
         color = "Continent",
         caption = "Figure 4") + 
   theme_bw() +
@@ -315,7 +315,7 @@ The amount of variability in Life Expectancy accounted for by the regression mod
 
 ## Simulating Values 
 
-The following plots extend our analysis by incorporating simulated values for the GDP per capita, which allows us to better understand the variability and predictive relationships in our dataset. Plot 1 revisits the relationship between GDP per capita (on a log scale) and life expectancy, whereas Plot 2 compares actual GDP per capita with simulated GDP values, which are generated based on our regression model, including random error. This helps assess the model's predictive accuracy and the distribution of GDP estimates.
+The following plots extend our analysis by incorporating simulated values for life expectancy, allowing us to better understand the variability and predictive accuracy of our model. Figure 5 illustrates the observed relationship between GDP per capita (on a log scale) and life expectancy, highlighting how this association differs across continents. Figure 6, on the other hand, presents a similar scatter plot but with simulated life expectancy values generated based on our regression model, incorporating random error. This comparison provides insight into how well the model replicates real-world patterns in life expectancy.
 
 ```{r}
 #| code-fold: true
@@ -354,10 +354,10 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`),
   geom_smooth(method = "lm", 
               color = "red", 
               se = FALSE) + 
-  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
-        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+  labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)",
         x = "Log of GDP per Capita", 
-        y = "Life Expectancy", color = "Continent",
+        subtitle = "Life Expectancy",
+        y = " ", color = "Continent",
         caption = "Figure 5") + 
   theme_bw() +
   theme(strip.background = element_blank(), 
@@ -372,10 +372,10 @@ ggplot(data_with_predict,
   geom_smooth(method = "lm", 
               color = "red", 
               se = FALSE) + 
-  labs( title = "Relationship Between GDP and Predicted GDP",
-        subtitle = "GDP is in international dollars and fixed at 2017 prices", 
+  labs( title = "Relationship Between GDP and Simulated Life Expectancy",
         x = "Log of GDP per Capita", 
-        y = "Simulated Life Expectancy", 
+        subtitle = "Simulated Life Expectancy",
+        y = " ", 
         color = "Continent",
         caption = "Figure 6") + 
   theme_bw() +
@@ -383,8 +383,8 @@ ggplot(data_with_predict,
         axis.text.x = element_text(size = 10))
 ```
 
-##### **Comparing Plot 1 and Plot 2**
-Plot 1 is included here once again to show a side-by-side comparison between the real data and simulated (expected) values. Plot 1 revisits the relationship between GDP per capita (on a log scale) and life expectancy, reinforcing the overall positive correlation and highlighting how this trend varies across continents. Plot 2 examines how well our regression model predicts GDP using simulated values. The x-axis still represents log-transformed GDP per capita, but instead of life expectancy, the y-axis now plots a simulated version of GDP, incorporating random error to reflect real-world variability. The presence of a strong positive correlation (as indicated by the red regression line) suggests that the model effectively captures the general trend of GDP, though some dispersion remains due to the introduced random variation. The distribution of points across continents is similar to Plot 1, reaffirming that economic patterns are broadly consistent across different regions.
+##### **Comparing Figure 5 and Figure 6**
+Figure 5 is included here once again (same as Figure 4) to show a side-by-side comparison between the real data and simulated values. It reinforces the positive relationship between GDP per capita and life expectancy, with distinct clustering patterns across continents. Figure 6 replaces the actual life expectancy values with simulated ones, allowing us to assess how well the model captures the true underlying trend. The x-axis remains the log-transformed GDP per capita, while the y-axis now reflects the simulated life expectancy values. The strong positive correlation indicated by the red regression line suggests that the model effectively replicates the observed trend. However, some deviations between the two plots indicate the presence of variability not fully accounted for by the model. The dispersion of points across continents remains similar, suggesting that while the model provides a reasonable approximation, it may not be able to fully predict and reflect real-world complexities.
 
 ##### **Understanding R Squared Variability**
 
@@ -399,45 +399,40 @@ get_r2 <- function(regression){
   predicted <- predict(regression)
   est_sigma <- sigma(regression)
   
-  sim_response <- tibble(sim_response = rand_error(predicted,
-                                            sd = est_sigma))
+  sim_response <- tibble(sim_life_expectancy = rand_error(predicted, sd = est_sigma))
 
+  data_with_predict2 <- combined_data |> 
+    bind_cols(sim_response) |> 
+    mutate(`Log of GDP per Capita` = log10(`GDP per Capita`))
 
-data_with_predict2 <- combined_data |> 
-  bind_cols(sim_response) |> 
-  mutate(`Log of GDP per Capita` = log(`GDP per Capita`))
+  sim_regression <- lm(sim_life_expectancy ~ `Log of GDP per Capita`, data = data_with_predict2)
 
-sim_regression <- lm(data_with_predict2$sim_response ~ data_with_predict2$`Log of GDP per Capita`)
-
-r2_data <- glance(sim_regression)
-
-return(r2_data$r.squared)
+  r2_data <- glance(sim_regression)
   
+  return(r2_data$r.squared)
 }
 
-#Taking 1000 samples
-r2s <- map_dbl(.x= 1:1000, 
-               .f = ~get_r2(gdp_regression))
+# Taking 1000 samples
+r2s <- map_dbl(.x = 1:1000, .f = ~get_r2(gdp_regression))
 
-#graphing the samples
-
+# Graphing the sample distribution of R-squared values
 tibble(r2s) |> 
-ggplot(aes(x = r2s)) +
-  geom_histogram(aes(y = ..density..)) +
-  stat_function(fun = ~dnorm(.x, mean = mean(r2s), 
-                             sd = sd(r2s)),
+  ggplot(aes(x = r2s)) +
+  geom_histogram(aes(y = ..density..), fill = "darkgrey", alpha = 0.7) +
+  stat_function(fun = ~dnorm(.x, mean = mean(r2s), sd = sd(r2s)), 
                 col = "darkorchid", 
-                lwd = 2) + 
-  labs(x = "R squared values", 
-       y = "Density", 
-       title = "Sample Distribution of R Square Values", 
-       subtitle = "For predicted vs actual log of GDP per Capita",
-       caption = "Figure 7")
+                lwd = 1) + 
+  labs(x = "R-squared Values", 
+       y = " ", 
+       title = "Sample Distribution of R-Squared Values from Simulated Life Expectancy", 
+       subtitle = "Density Distribution of Simulated R-Squared Values",
+       caption = "Figure 7") +
+  theme_bw()
 ```
 
 ##### **Distribution Results**
 
-The highest point of the distribution is around 0.625, which aligns with the observed R-squared value from the original model of 0.63. The relatively narrow spread suggests that the model consistently explains around 62-63% of the variance in life expectancy across different samples, implying good reliability. The overlaid density curve approximates a normal distribution, further indicating that the variation in R-squared values follows a predictable pattern.
+The histogram in the plot displays the distribution of R-squared values obtained from 1,000 simulations of the regression model, with a normal curve overlaid to illustrate the theoretical distribution. The simulated R-squared values are tightly clustered around 0.625, indicating that the model consistently explains a similar proportion of variance in life expectancy across different simulations, which also aligns with the observed R-squared value from the original model of 0.63. The relatively narrow spread suggests that the model consistently explains around 62-63% of the variance in life expectancy across different samples, implying good reliability. The overlaid density curve approximates a normal distribution, further indicating that the variation in R-squared values follows a predictable pattern.
 
 ## Conclusion
 
