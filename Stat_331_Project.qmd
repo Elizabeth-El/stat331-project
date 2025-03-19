@@ -239,7 +239,7 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
 animate(p, nframes = 100, fps = 10)
 ```
 
-From this, we can see that in general, both average GDP per capita and average live expectancy increase for all continents over time. It is important to note that this graph does not utilize log GDP values, which provides better perspective on these change over time. Europe consistently has the highest average GDP per capita, and has high life expectancy values. It is also clear that Africa makes the most significant life expectancy growth within this time period, however has very small average GDP per capita. Further, we can see that North and South America follow similar patterns throughout the 60 years.
+From this, we can see that in general, both average GDP per capita and average life expectancy increase for all continents over time. It is important to note that this graph does not utilize log GDP values, which provides better perspective on these change over time. Europe consistently has the highest average GDP per capita, and has high life expectancy values. It is also clear that Africa makes the most significant life expectancy growth within this time period, however has very small average GDP per capita. Further, we can see that North and South America follow similar patterns throughout the 60 years.
 
 ## Regression Model
 
@@ -311,7 +311,7 @@ variance_table |>
 
 ##### **Model Fit Results**
 
-The amount of variability in Life Expectancy accounted for by the regression model can be calculated as the proportion of Variance in Fitted Values over the Variance in Response: `r round(var_fitted, 2)` / `r round(var_response, 2)` ≈ `r round((var_fitted / var_response), 2)` This value is validated in the Linear Regression Fit Information table, as this number matches the R squared value. This tells us that `r round((var_fitted / var_response) * 100, 2)`% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining `r round((var_residuals / var_response) * 100, 2)`% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
+The amount of variability in life expectancy accounted for by the regression model can be calculated as the proportion of Variance in Fitted Values over the Variance in Response: `r round(var_fitted, 2)` / `r round(var_response, 2)` ≈ `r round((var_fitted / var_response), 2)`. This value is validated in the Linear Regression Fit Information table, as this number matches the R squared value. This tells us that `r round((var_fitted / var_response) * 100, 2)`% of the variability in life expectancy is explained by the model, indicating a moderate-to-strong relationship between GDP per capita and life expectancy. The remaining `r round((var_residuals / var_response) * 100, 2)`% of the variability (Variance in Residuals) is unexplained by the model, suggesting that there are other extraneous factors that also influence life expectancy.
 
 ## Simulating Values
 
