@@ -321,7 +321,7 @@ The following plots extend our analysis by incorporating simulated values for th
 #| code-fold: true
 #| label: Simulation
 
-predict_gdp <- predict(gdp_regression)
+predict_le <- predict(gdp_regression)
 
 estimated_sigma <- sigma(gdp_regression)
 
@@ -332,7 +332,7 @@ rand_error <- function(x, mean = 0, sd){
 }
 
 set.seed(1234)
-sim_response <- tibble(sim_gdp = rand_error(predict_gdp,
+sim_response <- tibble(sim_le = rand_error(predict_le,
                                             sd = estimated_sigma))
 
 map_int(combined_data, ~sum(is.na(.x)))
@@ -366,7 +366,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`),
 #Graph 2 here
 ggplot(data_with_predict, 
        aes(x = log10(`GDP per Capita`), 
-           y =sim_gdp)) +
+           y =sim_le)) +
   geom_point(aes(color = continent), 
              alpha = 0.7) + 
   geom_smooth(method = "lm", 
@@ -375,7 +375,7 @@ ggplot(data_with_predict,
   labs( title = "Relationship Between GDP and Predicted GDP",
         subtitle = "GDP is in international dollars and fixed at 2017 prices", 
         x = "Log of GDP per Capita", 
-        y = "Simulated GDP", 
+        y = "Simulated Life Expectancy", 
         color = "Continent",
         caption = "Figure 6") + 
   theme_bw() +
