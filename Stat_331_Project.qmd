@@ -335,8 +335,6 @@ set.seed(1234)
 sim_response <- tibble(sim_le = rand_error(predict_le,
                                             sd = estimated_sigma))
 
-map_int(combined_data, ~sum(is.na(.x)))
-
 data_with_predict <- combined_data |> 
   bind_cols(sim_response)
 ```
