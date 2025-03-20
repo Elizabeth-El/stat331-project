@@ -143,7 +143,7 @@ This analysis explores the relationship between GDP per capita and life expectan
 
 ##### **Exploring Previous Findings**
 
-Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (@Shafi2019). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy (@Shah2023). Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off ((@GeorgiaTech2023). This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.
+Many studies have examined the relationship between GDP and a country’s life expectancy, consistently reaching similar conclusions that build upon one another. Research has largely found that an increase in GDP per capita leads to higher life expectancy. The International Journal of Health Sciences and Research quantifies this relationship through panel data analysis, stating that “each additional \$10,000 per capita per year increases life expectancy at birth by an average of 1.8 years” (@Shafi2019). Further research from Georgia Tech suggests that this growth follows a non-linear pattern, with diminishing returns at higher GDP levels, where additional increases no longer significantly impact life expectancy (@Shah2023). Given these findings, our hypothesis aligns with Georgia Tech’s research—we expect GDP per capita to have a strong positive effect on life expectancy, but only up to a certain threshold, after which the impact levels off (@GeorgiaTech2023). This result conveys the idea that increased economic output contributes to a healthier lifestyle with greater access to resources, however biological limitations are present as this cannot be a continuous relationship.
 
 ##### **About the Data**
 
@@ -159,7 +159,7 @@ The most important phase of data cleaning was removing unwanted observations. Af
 
 ##### **Regression Visualizations**
 
-The plots below illustrate the relationship between GDP per capita (on a log scale) and life expectancy across different continents. Figure 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
+The plots below illustrate the relationship between GDP per capita (on a log scale to meet normality assumptions--further explained in later sections) and life expectancy across different continents. Figure 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
 
 ```{r}
 #| code-fold: true
@@ -170,7 +170,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y =`Life Expectancy`)) +
   geom_point(aes(color = continent), alpha = 0.7) + 
   geom_smooth(method = "lm", color = "red", se = FALSE) + 
   labs( title = "GDP and Life Expectancy Regression Faceted by Continent", 
-        subtitle = "Life Expectancy", 
+        subtitle = "Life Expectancy (years)", 
         x = "Log of GDP per Capita", 
         y = " ", color = "Continent",
         caption = "Figure 1") + 
@@ -182,7 +182,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`), y = `Life Expectancy`, co
   geom_smooth(method = "lm", aes(group = continent), se = FALSE) +  
   labs(
     title = "GDP and Life Expectancy Regression by Continent",
-    subtitle = "Estimated Regression Lines of Life Expectancy by Continent",
+    subtitle = "Life Expectancy (years)",
     x = "Log GDP per Capita",
     y = " ",
     color = "Continent",
@@ -220,8 +220,8 @@ p <- ggplot(combined_data_avg, aes(x = Year, y = avg_gdp_per_capita,
   geom_point(alpha = 0.7) +
   scale_size_continuous(range = c(1, 5)) + 
   labs(
-    title = "Average GDP per Capita vs Year with Bubble Size as GDP per Capita",
-    subtitle = "Size of bubble represents average life expectancy",
+    title = "Trends in Average GDP per Capita Over Time",
+    subtitle = "Average Life Expectancy (years)",
     x = "Year",
     y = "Average GDP per Capita",
     color = "Continent",
@@ -243,7 +243,7 @@ From this, we can see that in general, both average GDP per capita and average l
 
 ## Regression Model
 
-To quanitfiy the relationship between life expectancy and GDP per capita, we used a linear regression model. We regressed life expectancy onto a log transformation of GDP per capita to model causality. The log transformation was necessary to accommodate an unusual distribution in the GDP per capita data. Figure 4 shows the relationship between the transformed GDP and life expectancy as well as the resulting Ordinary Least Squares (OLS) model. The interpretation of the model coefficients are the life expectancy when GDP per capita is 0 ($\beta_{0}$) and the increase in life expectancy for every 1% increase in GDP per capita ($\beta_{1}$).
+To quanitfiy the relationship between life expectancy and GDP per capita, we used a linear regression model. We regressed life expectancy onto a log transformation of GDP per capita to model causality. The log transformation was necessary for two key reasons. First, it helps make the data more "normal" or symmetric. Since many statistical analyses, including regression, often assume normally distributed residuals, transforming GDP per capita can help meet this assumption by reducing skewness. Second, the log transformation helps satisfy the assumption of constant variance in linear modeling. Without the transformation, the variance in GDP per capita would be highly uneven, with extreme values exerting disproportionate influence on the model. By applying the log transformation, we achieve a more linear and stable relationship, improving the accuracy and reliability of our regression estimates. Figure 4 shows the relationship between the transformed GDP and life expectancy as well as the resulting Ordinary Least Squares (OLS) model. The interpretation of the model coefficients are the life expectancy when GDP per capita is 0 ($\beta_{0}$) and the increase in life expectancy for every 1 dollar increase (in international dollars fixed at 2017 prices) in GDP per capita ($\beta_{1}$).
 
 ```{r}
 #| code-fold: true
@@ -261,7 +261,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`),
               color = "red", 
               se = FALSE) + 
   labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)", 
-        subtitle = "Life Expectancy", 
+        subtitle = "Life Expectancy (years)", 
         x = "Log of GDP per Capita", 
         y = " ", 
         color = "Continent",
@@ -284,7 +284,7 @@ $$
 
 ## Interpretation of Regression Coefficients
 
-When the log of a country’s GDP is 0 (a GDP per capita of \$1) the country is estimated to have a life expectancy of –3.607 years, even though that is unrealistic. Then, each time the log of GDP per capita increases by 1, the life expectancy of that country is predicted to increase by 7.669 years.
+When the log of a country’s GDP is 0 (a GDP per capita of \$1) the country is estimated to have a life expectancy of –3.607 years. This negative life expectancy is clearly unrealistic, as life expectancy cannot be below zero. This occurs because the linear regression model extrapolates beyond the range of observed data, applying the same trend to extremely low GDP values where the relationship may not hold. In reality, countries with very low GDP per capita still have positive life expectancy values, even if significantly lower than wealthier nations. This limitation highlights the importance of considering the meaningful range of the model’s predictions and the potential need for alternative modeling approaches when dealing with extreme values. Despite this, the model effectively captures the general trend, predicting that for every 1 dollar increase (in international dollars fixed at 2017 prices) in the log of GDP per capita, life expectancy increases by approximately 7.669 years.
 
 ## Variance and Model Fit
 
@@ -356,7 +356,7 @@ ggplot(combined_data, aes(x = log10(`GDP per Capita`),
               se = FALSE) + 
   labs( title = "Relationship Between GDP and Life Expectancy\n(Linear Regression Model)",
         x = "Log of GDP per Capita", 
-        subtitle = "Life Expectancy",
+        subtitle = "Life Expectancy (years)",
         y = " ", color = "Continent",
         caption = "Figure 5") + 
   theme_bw() +
@@ -374,7 +374,7 @@ ggplot(data_with_predict,
               se = FALSE) + 
   labs( title = "Relationship Between GDP and Simulated Life Expectancy",
         x = "Log of GDP per Capita", 
-        subtitle = "Simulated Life Expectancy",
+        subtitle = "Simulated Life Expectancy (years)",
         y = " ", 
         color = "Continent",
         caption = "Figure 6") + 
