@@ -159,7 +159,7 @@ The most important phase of data cleaning was removing unwanted observations. Af
 
 ##### **Regression Visualizations**
 
-The plots below illustrate the relationship between GDP per capita (on a log scale to meet normality assumptions--further explained in later sections) and life expectancy in years across different continents. Figure 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
+The plots below illustrate the relationship between GDP per capita (on a log scale to meet normality assumptions--further explained in later sections) and life expectancy in years across different continents. Figure 1 displays points representing each country within a given continent annually, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
 
 ```{r}
 #| code-fold: true
