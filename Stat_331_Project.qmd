@@ -159,7 +159,7 @@ The most important phase of data cleaning was removing unwanted observations. Af
 
 ##### **Regression Visualizations**
 
-The plots below illustrate the relationship between GDP per capita (on a log scale to meet normality assumptions--further explained in later sections) and life expectancy across different continents. Figure 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
+The plots below illustrate the relationship between GDP per capita (on a log scale to meet normality assumptions--further explained in later sections) and life expectancy in years across different continents. Figure 1 displays points representing each country within a given continent, with a red linear regression line fitted to the overall data. The plot is then faceted by continent, allowing for a comparison of how the relationship between GDP per capita and life expectancy varies across different regions of the world. Figure 2 places these regression lines on a singular plot. It is important to note that GDP is recorded in international dollars fixed at 2017 prices.
 
 ```{r}
 #| code-fold: true
@@ -439,7 +439,7 @@ The histogram in the plot displays the distribution of R-squared values obtained
 
 This analysis aimed to determine the existence of a relationship between GDP per capita and life expectancy. We believed there would be a positive correlation between them meaning that as countries saw their economy grow, they would see a positive change in health outcomes such as life expectancy. Our findings concurred with this and showed a strong relationship between GDP growth an life expectancy. As GDP per capita increases by one percent in a country, its life expectancy increased by 7.669 years.
 
-We tested the strength of our model by using it to predict life expectancies based on simulated GDP data. The simulation yeilded normal residuals when compared to the actual life expectancy data. This suggests the model is an accurate representation of the trends in the data.
+We tested the strength of our model by using it to predict life expectancies based on simulated GDP data. The simulation yielded normal residuals when compared to the actual life expectancy data. This suggests the model is an accurate representation of the trends in the data.
 
 Our findings concur with existing research and support the general conclusion that an increase in per person wealth increases lifespan. An important thing tp note is that our model used a log transformation on GDP meaning that smaller economies will derive more benefit from the same increase in GDP per capita than larger economies.
 
