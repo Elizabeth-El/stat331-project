@@ -435,11 +435,11 @@ The histogram in the plot displays the distribution of R-squared values obtained
 
 ## Conclusion
 
-This analysis aimed to determine the existence of a relationship between GDP per capita and life expectancy. We believed there would be a positive correlation between them meaning that as countries saw their economy grow, they would see a positive change in health outcomes such as life expectancy. Our findings concurred with this and showed a strong relationship between GDP growth an life expectancy. As GDP per capita increases by one percent in a country, its life expectancy increased by 7.669 years.
+This analysis aimed to determine the existence of a relationship between GDP per capita and life expectancy. We believed there would be a positive correlation between them meaning that as countries saw their economy grow, they would see a positive change in health outcomes such as life expectancy. Our findings concurred with this and showed a strong relationship between GDP growth and life expectancy. As the log of GDP per capita increases by 1 unit in a country, its life expectancy increases by 7.669 years.
 
 We tested the strength of our model by using it to predict life expectancies based on simulated GDP data. The simulation yielded normal residuals when compared to the actual life expectancy data. This suggests the model is an accurate representation of the trends in the data.
 
-Our findings concur with existing research and support the general conclusion that an increase in per person wealth increases lifespan. An important thing tp note is that our model used a log transformation on GDP meaning that smaller economies will derive more benefit from the same increase in GDP per capita than larger economies.
+Our findings concur with existing research and support the general conclusion that an increase in per person wealth increases lifespan. An important thing to note is that our model used a log transformation on GDP meaning that smaller economies will derive more benefit from the same increase in GDP per capita than larger economies.
 
 There are limitations in our model given its simplicity. It is possible that there is reverse causation, when people have greater life expectancy they are productive members of society for longer. Additionally, there are likley missing variables, such as investment or geopolitical stability, that could help explain more of the variance in the data. These provide opportunities for further research and looking for more ways to increase life expectancy.
 
